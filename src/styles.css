@@ -1461,10 +1461,10 @@ main {
 }
 
 .case-hero {
-    min-height: 88svh;
-    padding-top: calc(var(--header-h) + 60px);
+    min-height: 55svh;
+    padding-top: calc(var(--header-h) + 30px);
     align-content: end;
-    padding-bottom: 65px
+    padding-bottom: 45px
 }
 
 .back-link {
