@@ -170,13 +170,15 @@ main {
     align-items: center;
     gap: clamp(18px, 3vw, 56px);
     padding: 0 clamp(18px, 2.4vw, 44px);
-    transition: background .3s, backdrop-filter .3s
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background .3s, backdrop-filter .3s, border-color .3s
 }
 
 .site-header.is-scrolled {
     background: color-mix(in oklab, var(--background) 82%, transparent);
     backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--line)
+    border-bottom: 1px solid var(--border)
 }
 
 .wordmark {
