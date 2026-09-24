@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, MoveUpRight, Plus, PenTool, Code2, Layers, MousePointer2, Sparkles, LayoutGrid, Frame } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,6 @@ const faqs = [
   { q: "DO YOU WORK WITH EXISTING DESIGNS?", a: "Yes. I can improve an existing interface, extend a design system or turn completed Figma designs into polished, responsive front-end experiences." },
   { q: "HOW CAN WE START A PROJECT?", a: "Send me a short overview of your project, goals and expected timeline through the contact page. I will review it and reply with the best next step." },
 ];
-export function FAQ() { return <section className="faq editorial-grid"><div className="faq-heading"><SectionLabel>FAQ</SectionLabel><h2>GOOD<br /><span>QUESTIONS.</span><br />CLEAR ANSWERS.</h2></div><div className="faq-list">{faqs.map((item, i) => <details key={item.q}><summary><span>{String(i + 1).padStart(2, "0")}</span><strong>{item.q}</strong><Plus aria-hidden="true" /></summary><p>{item.a}</p></details>)}</div></section> }
+export function FAQ() { const [openIndex, setOpenIndex] = useState<number | null>(0); return <section className="faq editorial-grid"><div className="faq-heading"><SectionLabel>FAQ</SectionLabel><h2>GOOD<br /><span>QUESTIONS.</span><br />CLEAR ANSWERS.</h2></div><div className="faq-list">{faqs.map((item, i) => <details key={item.q} name="faq-accordion" open={openIndex === i} onToggle={(e) => { if (e.currentTarget.open) { setOpenIndex(i); } else if (openIndex === i) { setOpenIndex(null); } }}><summary><span>{String(i + 1).padStart(2, "0")}</span><strong>{item.q}</strong><Plus aria-hidden="true" /></summary><p>{item.a}</p></details>)}</div></section> }
 
 export function ContactTeaser() { return <section className="contact-teaser dark-band"><SectionLabel>CONTACT</SectionLabel><h2>LET'S BUILD<br />SOMETHING<br /><span>USEFUL.</span></h2><div><p>Have a project, idea or opportunity?<br />Let's talk.</p><Status /><Button variant="lime" size="editorial" asChild><Link to="/contact">START A CONVERSATION <ArrowRight /></Link></Button></div></section> }
