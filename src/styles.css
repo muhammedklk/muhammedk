@@ -3232,7 +3232,7 @@ main {
 
 /* dedicated work archive */
 .work-page-title {
-    min-height: calc(100svh - var(--header-h));
+    min-height: 400px;
     padding-top: clamp(70px, 10vh, 130px);
     padding-bottom: 42px;
     align-content: end;
