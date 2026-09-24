@@ -1086,12 +1086,13 @@ main {
 }
 
 .inner-page {
-    padding-top: var(--header-h)
+    padding-top: 0
 }
 
 .page-title {
     min-height: 82svh;
     align-content: end;
+    padding-top: calc(var(--header-h) + 30px);
     padding-bottom: 60px
 }
 
@@ -1315,12 +1316,13 @@ main {
 }
 
 .contact-page {
-    padding-top: var(--header-h)
+    padding-top: 0
 }
 
 .contact-heading {
     min-height: 700px;
     align-content: end;
+    padding-top: calc(var(--header-h) + 30px);
     padding-bottom: 70px
 }
 
@@ -2500,7 +2502,7 @@ main {
 
 .page-title {
     min-height: auto;
-    padding-top: calc(var(--header-h) + 60px);
+    padding-top: calc(var(--header-h) + 30px);
     padding-bottom: 50px
 }
 
@@ -3263,7 +3265,7 @@ main {
 /* dedicated work archive */
 .work-page-title {
     min-height: 400px;
-    padding-top: clamp(70px, 10vh, 130px);
+    padding-top: calc(var(--header-h) + 30px);
     padding-bottom: 42px;
     align-content: end;
     position: relative
