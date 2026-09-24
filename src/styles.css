@@ -1514,16 +1514,31 @@ main {
 }
 
 .case-main-image {
-    margin: 0 clamp(18px, 2.4vw, 44px);
-    height: min(78vw, 950px);
+    margin: 40px auto;
+    max-width: 960px;
+    width: calc(100% - clamp(36px, 4.8vw, 88px));
+    border: 1px solid var(--border);
+    background: var(--muted);
     overflow: hidden;
-    background: var(--muted)
+    position: relative;
+    box-shadow: 0 24px 64px -16px oklch(.18 0 0 / 14%);
+    transition: box-shadow .4s
+}
+
+.case-main-image:hover {
+    box-shadow: 0 36px 80px -20px oklch(.18 0 0 / 22%)
 }
 
 .case-main-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform .7s cubic-bezier(.2, .7, .2, 1)
+}
+
+.case-main-image:hover img {
+    transform: scale(1.025)
 }
 
 .case-overview,
