@@ -408,8 +408,7 @@ main {
 }
 
 .about-intro {
-    padding-top: clamp(100px, 14vw, 220px);
-    padding-bottom: clamp(100px, 13vw, 190px)
+    padding-block: clamp(55px, 7vw, 90px)
 }
 
 .about-label {
@@ -462,7 +461,7 @@ main {
 }
 
 .selected-work {
-    padding: 80px 0 150px;
+    padding: clamp(50px, 6vw, 85px) 0;
     border-top: 1px solid var(--border)
 }
 
@@ -587,7 +586,7 @@ main {
 }
 
 .process {
-    padding: 130px clamp(18px, 2.4vw, 44px)
+    padding: clamp(55px, 7vw, 90px) clamp(18px, 2.4vw, 44px)
 }
 
 .process-intro {
@@ -613,7 +612,7 @@ main {
 .process-steps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 110px;
+    margin-top: 55px;
     border-top: 1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)
 }
 
@@ -696,12 +695,12 @@ main {
 }
 
 .toolkit {
-    padding-block: 130px;
+    padding-block: clamp(55px, 7vw, 90px);
     overflow: hidden
 }
 
 .toolkit-head {
-    margin-bottom: 80px
+    margin-bottom: 40px
 }
 
 .toolkit-head .section-label {
@@ -754,7 +753,7 @@ main {
 }
 
 .experience {
-    padding-block: 120px;
+    padding-block: clamp(55px, 7vw, 90px);
     border-top: 1px solid
 }
 
@@ -903,13 +902,13 @@ main {
 }
 
 .services {
-    padding: 140px clamp(18px, 2.4vw, 44px)
+    padding: clamp(55px, 7vw, 90px) clamp(18px, 2.4vw, 44px)
 }
 
 .services-title {
     padding-inline: 0;
     background-image: none;
-    margin-bottom: 80px
+    margin-bottom: 40px
 }
 
 .services-title .section-label {
@@ -964,8 +963,8 @@ main {
 }
 
 .contact-teaser {
-    min-height: 90vh;
-    padding: 80px clamp(18px, 2.4vw, 44px);
+    min-height: auto;
+    padding: clamp(65px, 8vw, 100px) clamp(18px, 2.4vw, 44px);
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: clamp(20px, 2vw, 38px);
@@ -1119,7 +1118,7 @@ main {
 }
 
 .about-portrait {
-    padding-block: clamp(70px, 9vw, 130px);
+    padding-block: clamp(45px, 6vw, 75px);
     align-items: start
 }
 
@@ -1515,7 +1514,7 @@ main {
 
 .case-overview,
 .case-result {
-    padding-block: 150px
+    padding-block: clamp(60px, 8vw, 95px)
 }
 
 .case-overview>.section-label,
@@ -1543,7 +1542,7 @@ main {
 }
 
 .case-process {
-    padding: 130px clamp(18px, 2.4vw, 44px)
+    padding: clamp(60px, 8vw, 95px) clamp(18px, 2.4vw, 44px)
 }
 
 .case-process>div:first-child {
@@ -1561,18 +1560,18 @@ main {
 .case-process-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 100px
+    margin-top: 60px
 }
 
 .case-process-grid article {
     border-top: 1px solid;
-    padding: 20px 25px 60px
+    padding: 20px 25px 40px
 }
 
 .case-process-grid h3 {
     font-family: var(--font-display);
     font-size: clamp(25px, 3vw, 48px);
-    margin-top: 80px
+    margin-top: 40px
 }
 
 .case-process-grid p {
@@ -1582,7 +1581,7 @@ main {
 }
 
 .case-gallery {
-    padding-block: 140px;
+    padding-block: clamp(60px, 8vw, 95px);
     row-gap: 25px
 }
 
@@ -1640,7 +1639,7 @@ main {
 }
 
 .case-development {
-    padding: 130px clamp(18px, 2.4vw, 44px);
+    padding: clamp(60px, 8vw, 95px) clamp(18px, 2.4vw, 44px);
     background: var(--accent);
     display: grid;
     grid-template-columns: 2fr 5fr 5fr;
@@ -1670,7 +1669,7 @@ main {
 }
 
 .next-project {
-    padding: 90px clamp(18px, 2.4vw, 44px)
+    padding: clamp(50px, 6vw, 75px) clamp(18px, 2.4vw, 44px)
 }
 
 .next-project>p {
