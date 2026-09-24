@@ -1306,7 +1306,7 @@ main {
 }
 
 .contact-heading {
-    min-height: 88svh;
+    min-height: 700px;
     align-content: end;
     padding-bottom: 70px
 }
