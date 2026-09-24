@@ -1194,7 +1194,8 @@ main {
 .portrait-media {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4/5;
+    aspect-ratio: 4/3.4;
+    max-height: 480px;
     background: var(--muted)
 }
 
@@ -1202,6 +1203,7 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 20%;
     transition: transform .8s cubic-bezier(.2, .7, .2, 1), filter .5s;
     filter: saturate(.92)
 }
