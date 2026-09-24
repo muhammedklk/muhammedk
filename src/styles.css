@@ -3042,8 +3042,7 @@ main {
 }
 
 .project-image {
-    isolation: isolate;
-    box-shadow: 0 24px 70px -55px var(--foreground)
+    isolation: isolate
 }
 
 .project-image::after {
