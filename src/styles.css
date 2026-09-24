@@ -468,7 +468,7 @@ main {
 
 .work-title {
     align-items: end;
-    margin-bottom: 100px
+    margin-bottom: 60px
 }
 
 .work-title .section-label {
@@ -496,7 +496,7 @@ main {
     padding-inline: clamp(18px, 2.4vw, 44px);
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: clamp(70px, 11vw, 170px) 20px
+    gap: clamp(40px, 5vw, 70px) 20px
 }
 
 .project-feature {
@@ -2062,7 +2062,7 @@ main {
     .project-feature {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        margin-bottom: 95px
+        margin-bottom: 50px
     }
 
     .project-head {
