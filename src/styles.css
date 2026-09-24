@@ -3644,8 +3644,8 @@ main {
     grid-template-columns: 42px 1fr 24px;
     align-items: center;
     gap: 18px;
-    min-height: 92px;
-    padding: 22px 0;
+    min-height: 64px;
+    padding: 16px 0;
     cursor: pointer;
     list-style: none
 }
@@ -3661,9 +3661,9 @@ main {
 
 .faq-list summary strong {
     font-family: var(--font-display);
-    font-size: clamp(20px, 2vw, 31px);
+    font-size: clamp(15px, 1.3vw, 21px);
     font-weight: inherit;
-    line-height: 1
+    line-height: 1.15
 }
 
 .faq-list summary svg {
@@ -3732,11 +3732,11 @@ main {
     .faq-list summary {
         grid-template-columns: 28px 1fr 20px;
         gap: 10px;
-        min-height: 82px
+        min-height: 56px
     }
 
     .faq-list summary strong {
-        font-size: 20px
+        font-size: 15px
     }
 
     .faq-list details p {
