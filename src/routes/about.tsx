@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Sparkles, Code2, PenTool, ArrowUpRight, Layers, Smartphone, Clock, Download } from "lucide-react";
 import { AboutIntro, ContactTeaser, Experience, Process, SkillsMarquee } from "@/components/portfolio/Sections";
-import photoAsset from "@/assets/muhammed-k.jpg.asset.json";
+import profilePhoto from "@/assets/muhammed-k-profile.jpg";
 export const Route=createFileRoute("/about")({head:()=>({meta:[{title:"About Muhammed K — Designer & Developer"},{name:"description",content:"Meet Muhammed K, a Kerala-based UI/UX Designer and Front-End Developer focused on useful, polished digital products."},{property:"og:title",content:"About Muhammed K"},{property:"og:description",content:"A UI/UX Designer and Front-End Developer designing with purpose and building with detail."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}],links:[{rel:"canonical",href:"/about"}]}),component:AboutPage});
 function AboutPage(){return <div className="inner-page"><section className="page-title editorial-grid"><p>02 / ABOUT</p><h1>DESIGN.<br/><span>BUILD.</span><br/>MAKE IT WORK.</h1><p>Clear thinking, expressive interfaces and carefully built front-end experiences.</p></section>
 <section className="about-portrait editorial-grid" aria-label="Profile portrait">
@@ -9,7 +9,7 @@ function AboutPage(){return <div className="inner-page"><section className="page
     <span className="portrait-corner tl" aria-hidden="true"/>
     <span className="portrait-corner br" aria-hidden="true"/>
     <div className="portrait-media">
-      <img src={photoAsset.url} alt="Muhammed K standing on a green field in Kerala" width={1200} height={1600} loading="lazy"/>
+      <img src={profilePhoto} alt="Muhammed K standing on a green field in Kerala" width={1200} height={1600} loading="lazy"/>
       <span className="portrait-tag"><Sparkles/> DESIGNER · DEVELOPER</span>
     </div>
     <div className="portrait-body">
