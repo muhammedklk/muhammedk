@@ -2967,13 +2967,13 @@ main {
 /* === selected work redesign === */
 .selected-work {
     position: relative;
-    padding: clamp(90px, 10vw, 150px) 0 clamp(110px, 13vw, 200px);
+    padding: clamp(50px, 6vw, 90px) 0 clamp(60px, 7vw, 100px);
     overflow: hidden
 }
 
 .work-title {
     align-items: end;
-    margin-bottom: clamp(70px, 9vw, 130px);
+    margin-bottom: clamp(30px, 4vw, 50px);
     row-gap: 28px
 }
 
@@ -3014,7 +3014,7 @@ main {
 }
 
 .project-list {
-    gap: clamp(100px, 14vw, 220px) 20px
+    gap: clamp(32px, 4vw, 56px) 20px
 }
 
 .project-feature {
@@ -3418,7 +3418,7 @@ main {
     }
 
     .project-feature {
-        margin-bottom: 100px
+        margin-bottom: 40px
     }
 
     .project-head {
