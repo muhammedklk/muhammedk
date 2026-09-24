@@ -1,0 +1,19 @@
+import advancedLeap from "@/assets/mockup-advanced-leap.jpg";
+import greenTrack from "@/assets/mockup-green-track.jpg";
+import ronaraiksa from "@/assets/mockup-ronaraiksa.jpg";
+import styleora from "@/assets/mockup-styleora.jpg";
+import erp from "@/assets/mockup-erp.jpg";
+
+export type Project = {
+  slug: string; number: string; title: string; category: string; description: string;
+  tech: string[]; image: string; dimensions: [number, number]; accent: "blue" | "lime" | "dark";
+  challenge: string; objective: string; result: string;
+};
+
+export const projects: Project[] = [
+  { slug: "advanced-leap-co", number: "01", title: "ADVANCED LEAP CO", category: "Business Website / Front-End Development", description: "A responsive business website designed and developed from a structured visual concept with a focus on clarity, responsiveness and polished interactions.", tech: ["HTML", "CSS", "JavaScript", "Bootstrap"], image: advancedLeap, dimensions: [1600,1104], accent: "blue", challenge: "Turn a broad business story into a focused, credible digital journey without losing detail.", objective: "Create a clear narrative system that helps visitors understand the offer and move confidently toward contact.", result: "A responsive experience with stronger information hierarchy, reusable sections and purposeful interaction cues." },
+  { slug: "green-track", number: "02", title: "GREEN TRACK", category: "Logistics Website / UI/UX", description: "A modern logistics-focused digital experience designed with a clear information hierarchy and responsive interface system.", tech: ["Figma", "UI/UX", "HTML", "CSS", "JavaScript", "Bootstrap"], image: greenTrack, dimensions: [1200,1504], accent: "lime", challenge: "Make complex logistics information feel simple, immediate and useful across device sizes.", objective: "Prioritize live status, route context and environmental impact in one coherent experience.", result: "A legible tracking concept with clear state changes and a flexible responsive interface." },
+  { slug: "ronaraiksa", number: "03", title: "RONARAIKSA", category: "Restaurant Website / UI Design + Development", description: "A modern restaurant website focused on visual storytelling, menu presentation and responsive user experience.", tech: ["Figma", "HTML", "CSS", "JavaScript"], image: ronaraiksa, dimensions: [1600,1104], accent: "dark", challenge: "Balance immersive food imagery with fast access to practical menu and booking information.", objective: "Create an atmosphere-led journey that remains direct, readable and responsive.", result: "An editorial dining experience with a focused menu system and strong visual pacing." },
+  { slug: "styleora", number: "04", title: "STYLEORA", category: "E-Commerce / UI/UX", description: "A premium e-commerce concept with a clean shopping experience, strong visual hierarchy and responsive product presentation.", tech: ["Figma", "UI/UX", "Prototyping"], image: styleora, dimensions: [1200,1504], accent: "blue", challenge: "Make product discovery expressive without adding friction to comparison and checkout.", objective: "Develop a clean commerce language where editorial imagery and transactional clarity coexist.", result: "A focused shopping flow with confident product hierarchy and a simplified mobile checkout." },
+  { slug: "erp-redesign", number: "05", title: "ERP REDESIGN", category: "Product Design / UX", description: "A dashboard and ERP interface redesign focused on improving usability, information hierarchy and workflow clarity.", tech: ["Figma", "UX Research", "Design Systems", "Prototyping"], image: erp, dimensions: [1600,1104], accent: "dark", challenge: "Reduce cognitive load across dense operational screens and multi-step approval workflows.", objective: "Clarify priorities, standardize patterns and make common actions easier to find and complete.", result: "A scalable dashboard system with clearer status, navigation and decision-making paths." },
+];
