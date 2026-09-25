@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Wrench, Home, Briefcase, Mail, User, Sparkles, RefreshCw, ArrowRight } from "lucide-react";
+import { Wrench, Home, Briefcase, Mail, User, Sparkles, RefreshCw, ArrowRight, Code2, Hammer, PenTool } from "lucide-react";
 import { useCMS } from "@/lib/cmsStore";
 
 interface MaintenanceGuardProps {
@@ -223,7 +223,7 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
                   animation: "pingPulse 1.8s cubic-bezier(0, 0, 0.2, 1) infinite",
                 }}
               />
-              <span style={{ relative: "relative", display: "inline-flex", width: "10px", height: "10px", borderRadius: "50%", background: "#dc2626" }} />
+              <span style={{ position: "relative", display: "inline-flex", width: "10px", height: "10px", borderRadius: "50%", background: "#dc2626" }} />
             </span>
             {globalMaintenance ? "WEBSITE UNDER SCHEDULED MAINTENANCE" : `${pageName} UNDER MAINTENANCE`}
           </div>
