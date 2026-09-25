@@ -160,9 +160,12 @@ export type CMSData = {
     experiences: ExperienceItem[];
   };
   workPage: {
+    label?: string;
     title: string;
     subtitle: string;
     intro: string;
+    indexLabel?: string;
+    indexNote?: string;
   };
   contactPage: {
     title: string;
@@ -314,9 +317,12 @@ export const defaultCMSData: CMSData = {
     ],
   },
   workPage: {
+    label: "03 / WORK ARCHIVE",
     title: "SELECTED WORK",
     subtitle: "EXPLORE THE PORTFOLIO ARCHIVE",
     intro: "Digital products shaped through research, interface design and responsive front-end execution.",
+    indexLabel: "PROJECT INDEX",
+    indexNote: "JUMP DIRECTLY TO A CASE STUDY",
   },
   contactPage: {
     title: "GET IN TOUCH",

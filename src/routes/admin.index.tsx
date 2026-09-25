@@ -1175,19 +1175,50 @@ function AdminCMSPage() {
           {/* SECTION 4: WORK PAGE CMS */}
           {activeTab === "work" && (
             <div>
-              <div style={{ marginBottom: "28px" }}>
-                <h2 style={{ fontFamily: "var(--font-display)", fontSize: "28px", fontWeight: "700", color: "#0f172a", margin: 0 }}>
-                  WORK PAGE CMS
-                </h2>
-                <p style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>
-                  Configure header copy for the main Work Archive page.
-                </p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px" }}>
+                <div>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: "28px", fontWeight: "700", color: "#0f172a", margin: 0 }}>
+                    WORK PAGE CMS (ALL SECTIONS)
+                  </h2>
+                  <p style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>
+                    Configure hero text, project index, projects list, services, and CTA banner on the Work Archive page.
+                  </p>
+                </div>
+                <button
+                  onClick={handleAddProject}
+                  style={{
+                    padding: "10px 18px",
+                    background: "#0f172a",
+                    color: "#ffffff",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontSize: "12px",
+                    fontWeight: "700",
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <Plus style={{ width: 16, height: 16 }} /> Create New Project
+                </button>
               </div>
 
-              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px" }}>
+              {/* 1. HERO SECTION CARD */}
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>1. Hero Title & Header Copy</h3>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>WORK PAGE TITLE</label>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>SECTION LABEL</label>
+                    <input
+                      type="text"
+                      value={draft.workPage.label || "03 / WORK ARCHIVE"}
+                      onChange={(e) => setDraft({ ...draft, workPage: { ...draft.workPage, label: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>MAIN WORK TITLE</label>
                     <input
                       type="text"
                       value={draft.workPage.title}
@@ -1204,6 +1235,202 @@ function AdminCMSPage() {
                       style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
                     />
                   </div>
+                </div>
+              </div>
+
+              {/* 2. PROJECT INDEX SECTION CARD */}
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>2. Project Index Section Labels</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>INDEX LABEL</label>
+                    <input
+                      type="text"
+                      value={draft.workPage.indexLabel || "PROJECT INDEX"}
+                      onChange={(e) => setDraft({ ...draft, workPage: { ...draft.workPage, indexLabel: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>INDEX SUBTITLE / NOTE</label>
+                    <input
+                      type="text"
+                      value={draft.workPage.indexNote || "JUMP DIRECTLY TO A CASE STUDY"}
+                      onChange={(e) => setDraft({ ...draft, workPage: { ...draft.workPage, indexNote: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. PORTFOLIO PROJECTS LIST & ADD/EDIT MANAGER */}
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                  <div>
+                    <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", margin: 0 }}>3. Portfolio Projects List & Quick Editor</h3>
+                    <p style={{ fontSize: "12px", color: "#64748b", margin: "4px 0 0" }}>
+                      Add new projects, change titles/covers, reorder, or open full Case Study Editor.
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleAddProject}
+                    style={{
+                      padding: "8px 14px",
+                      background: "#2563eb",
+                      color: "#ffffff",
+                      border: "none",
+                      borderRadius: "6px",
+                      fontSize: "12px",
+                      fontWeight: "700",
+                      cursor: "pointer",
+                    }}
+                  >
+                    + Add New Project
+                  </button>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                  {draft.projects.map((p, idx) => (
+                    <div
+                      key={p.slug}
+                      style={{
+                        background: "#f8fafc",
+                        border: "1px solid #cbd5e1",
+                        borderRadius: "10px",
+                        padding: "16px",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <span style={{ fontFamily: "var(--font-display)", fontWeight: "700", color: "#2563eb", fontSize: "16px" }}>{p.number}</span>
+                          <strong style={{ fontSize: "15px", color: "#0f172a" }}>{p.title}</strong>
+                        </div>
+
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <button
+                            disabled={idx === 0}
+                            onClick={() => moveProject(idx, "up")}
+                            style={{ padding: "4px 8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "4px", cursor: "pointer" }}
+                          >
+                            <ArrowUp style={{ width: 14, height: 14 }} />
+                          </button>
+                          <button
+                            disabled={idx === draft.projects.length - 1}
+                            onClick={() => moveProject(idx, "down")}
+                            style={{ padding: "4px 8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "4px", cursor: "pointer" }}
+                          >
+                            <ArrowDown style={{ width: 14, height: 14 }} />
+                          </button>
+                          <button
+                            onClick={() => {
+                              setEditingProjectSlug(p.slug);
+                              setActiveTab("casestudies");
+                            }}
+                            style={{ padding: "6px 12px", background: "#0f172a", color: "#ffffff", border: "none", borderRadius: "6px", fontSize: "11px", fontWeight: "700", cursor: "pointer" }}
+                          >
+                            Edit Full Case Study →
+                          </button>
+                          <button
+                            onClick={() => handleDeleteProject(p.slug)}
+                            style={{ padding: "6px 10px", background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca", borderRadius: "6px", cursor: "pointer" }}
+                          >
+                            <Trash2 style={{ width: 14, height: 14 }} />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                        <div>
+                          <label style={{ display: "block", fontSize: "10px", fontWeight: "700", color: "#64748b", marginBottom: "4px" }}>TITLE</label>
+                          <input
+                            type="text"
+                            value={p.title}
+                            onChange={(e) => updateProjectField(p.slug, "title", e.target.value)}
+                            style={{ width: "100%", padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: "block", fontSize: "10px", fontWeight: "700", color: "#64748b", marginBottom: "4px" }}>DISCIPLINE / CATEGORY</label>
+                          <input
+                            type="text"
+                            value={p.category}
+                            onChange={(e) => updateProjectField(p.slug, "category", e.target.value)}
+                            style={{ width: "100%", padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ marginTop: "12px" }}>
+                        <ImageUploader
+                          label="COVER MOCKUP IMAGE (UPLOAD FROM DESKTOP)"
+                          value={p.image}
+                          onChange={(url) => updateProjectField(p.slug, "image", url)}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 4. SERVICES SHOWCASE CARD */}
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>4. Services Showcase ("WHAT I CAN HELP WITH")</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>SERVICES SECTION LABEL</label>
+                    <input
+                      type="text"
+                      value={draft.home.services.label}
+                      onChange={(e) => setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, label: e.target.value } } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>SERVICES TITLE</label>
+                    <input
+                      type="text"
+                      value={draft.home.services.title}
+                      onChange={(e) => setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, title: e.target.value } } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {draft.home.services.items.map((serv, idx) => (
+                    <div key={idx} style={{ display: "grid", gridTemplateColumns: "60px 1fr 2fr", gap: "12px", alignItems: "center" }}>
+                      <input
+                        type="text"
+                        value={serv.n}
+                        onChange={(e) => {
+                          const newItems = [...draft.home.services.items];
+                          if (newItems[idx]) newItems[idx] = { ...newItems[idx]!, n: e.target.value };
+                          setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, items: newItems } } });
+                        }}
+                        style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}
+                      />
+                      <input
+                        type="text"
+                        value={serv.t}
+                        onChange={(e) => {
+                          const newItems = [...draft.home.services.items];
+                          if (newItems[idx]) newItems[idx] = { ...newItems[idx]!, t: e.target.value };
+                          setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, items: newItems } } });
+                        }}
+                        style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}
+                      />
+                      <input
+                        type="text"
+                        value={serv.d}
+                        onChange={(e) => {
+                          const newItems = [...draft.home.services.items];
+                          if (newItems[idx]) newItems[idx] = { ...newItems[idx]!, d: e.target.value };
+                          setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, items: newItems } } });
+                        }}
+                        style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

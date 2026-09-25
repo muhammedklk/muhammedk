@@ -26,7 +26,7 @@ function WorkPage() {
   return (
     <div className="inner-page work-page">
       <section className="page-title work-page-title editorial-grid">
-        <p>03 / WORK ARCHIVE</p>
+        <p>{workConfig.label || "03 / WORK ARCHIVE"}</p>
         <p className="work-page-count">
           {String(projects.length).padStart(2, "0")} PROJECTS
           <br />
@@ -52,8 +52,8 @@ function WorkPage() {
       </section>
 
       <section className="work-index editorial-grid" aria-label="Project index">
-        <SectionLabel>PROJECT INDEX</SectionLabel>
-        <p className="index-note">JUMP DIRECTLY TO A CASE STUDY</p>
+        <SectionLabel>{workConfig.indexLabel || "PROJECT INDEX"}</SectionLabel>
+        <p className="index-note">{workConfig.indexNote || "JUMP DIRECTLY TO A CASE STUDY"}</p>
         <ol>
           {projects.map((p) => (
             <li key={p.slug}>
