@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Wrench, ShieldAlert, ArrowLeft, Home, Briefcase, Mail, User } from "lucide-react";
+import { Wrench, Home, Briefcase, Mail, User, Sparkles, RefreshCw, ArrowRight } from "lucide-react";
 import { useCMS } from "@/lib/cmsStore";
 
 interface MaintenanceGuardProps {
@@ -47,167 +47,243 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
       <div
         style={{
           minHeight: "100vh",
-          background: "#0a0a0c",
-          color: "#f8fafc",
+          background: "#f8fafc",
+          color: "#0f172a",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "40px 24px",
+          padding: "60px 24px",
           textAlign: "center",
           fontFamily: "var(--font-sans)",
           position: "relative",
           zIndex: 999,
+          backgroundImage:
+            "linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
         }}
       >
-        <div style={{ maxWidth: "560px", width: "100%" }}>
-          {/* Badge */}
+        {/* Keyframe animations for animated icon & pinging badge */}
+        <style>{`
+          @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          @keyframes pulseScale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+          }
+          @keyframes pingPulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            75%, 100% { transform: scale(2.4); opacity: 0; }
+          }
+          .maint-btn:hover {
+            background: #0f172a !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+            transform: translateY(-2px);
+          }
+        `}</style>
+
+        <div style={{ maxWidth: "620px", width: "100%", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "24px", padding: "48px 36px", boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)" }}>
+          {/* Animated Icon Container */}
+          <div style={{ position: "relative", width: "88px", height: "88px", margin: "0 auto 28px" }}>
+            {/* Spinning Outer Dashed Ring */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                borderRadius: "50%",
+                border: "2px dashed #2563eb",
+                animation: "spinSlow 12s linear infinite",
+              }}
+            />
+            {/* Inner Pulsing Glowing Circle */}
+            <div
+              style={{
+                position: "absolute",
+                inset: "8px",
+                borderRadius: "50%",
+                background: "#eff6ff",
+                border: "1px solid #bfdbfe",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#2563eb",
+                animation: "pulseScale 2.5s ease-in-out infinite",
+                boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.2)",
+              }}
+            >
+              <Wrench style={{ width: 34, height: 34 }} />
+            </div>
+          </div>
+
+          {/* Maintenance Status Badge with Live Pulsing Dot */}
           <div
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "8px",
-              padding: "6px 14px",
-              background: "rgba(239, 68, 68, 0.15)",
-              border: "1px solid rgba(239, 68, 68, 0.3)",
+              gap: "10px",
+              padding: "8px 16px",
+              background: "#fef2f2",
+              border: "1px solid #fecaca",
               borderRadius: "100px",
-              color: "#f87171",
+              color: "#dc2626",
               fontSize: "11px",
               fontWeight: "700",
-              letterSpacing: "0.1em",
-              marginBottom: "24px",
+              letterSpacing: "0.08em",
+              marginBottom: "20px",
             }}
           >
-            <span
-              style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                background: "#ef4444",
-                boxShadow: "0 0 8px #ef4444",
-              }}
-            />
+            <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  display: "inline-flex",
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  background: "#ef4444",
+                  animation: "pingPulse 1.8s cubic-bezier(0, 0, 0.2, 1) infinite",
+                }}
+              />
+              <span style={{ relative: "relative", display: "inline-flex", width: "10px", height: "10px", borderRadius: "50%", background: "#dc2626" }} />
+            </span>
             {globalMaintenance ? "WEBSITE UNDER SCHEDULED MAINTENANCE" : `${pageName} UNDER MAINTENANCE`}
           </div>
 
-          {/* Heading */}
+          {/* Main Title */}
           <h1
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(32px, 5vw, 56px)",
-              lineHeight: 1.05,
+              fontSize: "clamp(30px, 4.5vw, 48px)",
+              lineHeight: 1.08,
               fontWeight: "700",
               marginBottom: "16px",
-              color: "#ffffff",
+              color: "#0f172a",
+              letterSpacing: "-0.02em",
             }}
           >
-            WE'RE UPGRADING THE <span style={{ color: "var(--accent)" }}>DIGITAL EXPERIENCE.</span>
+            WE'RE UPGRADING THE <span style={{ color: "#2563eb" }}>DIGITAL EXPERIENCE.</span>
           </h1>
 
-          <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.7)", lineHeight: 1.6, marginBottom: "36px" }}>
+          {/* Description Paragraph */}
+          <p style={{ fontSize: "15px", color: "#475569", lineHeight: 1.65, marginBottom: "32px" }}>
             The {pageName.toLowerCase()} is currently undergoing scheduled updates and content enhancements. We'll be back online shortly!
           </p>
 
-          {/* Navigation Links for Page Maintenance */}
+          {/* Navigation Card for Available Sections */}
           {!globalMaintenance && (
             <div
               style={{
-                background: "rgba(255, 255, 255, 0.03)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "#f8fafc",
+                border: "1px solid #cbd5e1",
                 borderRadius: "16px",
-                padding: "24px",
-                marginBottom: "30px",
+                padding: "24px 20px",
+                marginBottom: "28px",
               }}
             >
-              <p style={{ fontSize: "12px", fontWeight: "700", color: "var(--accent)", marginBottom: "16px", letterSpacing: "0.08em" }}>
+              <p style={{ fontSize: "11px", fontWeight: "700", color: "#2563eb", marginBottom: "16px", letterSpacing: "0.1em", textTransform: "uppercase" }}>
                 EXPLORE OTHER AVAILABLE SECTIONS:
               </p>
-              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "12px" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px" }}>
                 {pathname !== "/" && !pageMaintenance.home && (
                   <Link
                     to="/"
+                    className="maint-btn"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "6px",
-                      padding: "8px 16px",
-                      background: "rgba(255,255,255,0.08)",
-                      color: "#fff",
+                      gap: "8px",
+                      padding: "10px 18px",
+                      background: "#ffffff",
+                      color: "#0f172a",
+                      border: "1px solid #cbd5e1",
                       textDecoration: "none",
                       borderRadius: "8px",
-                      fontSize: "12px",
-                      fontWeight: "600",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      transition: "all 0.2s ease",
                     }}
                   >
-                    <Home style={{ width: 14, height: 14 }} /> Home Page
+                    <Home style={{ width: 15, height: 15 }} /> Home Page
                   </Link>
                 )}
                 {!pathname.startsWith("/about") && !pageMaintenance.about && (
                   <Link
                     to="/about"
+                    className="maint-btn"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "6px",
-                      padding: "8px 16px",
-                      background: "rgba(255,255,255,0.08)",
-                      color: "#fff",
+                      gap: "8px",
+                      padding: "10px 18px",
+                      background: "#ffffff",
+                      color: "#0f172a",
+                      border: "1px solid #cbd5e1",
                       textDecoration: "none",
                       borderRadius: "8px",
-                      fontSize: "12px",
-                      fontWeight: "600",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      transition: "all 0.2s ease",
                     }}
                   >
-                    <User style={{ width: 14, height: 14 }} /> About Page
+                    <User style={{ width: 15, height: 15 }} /> About Page
                   </Link>
                 )}
                 {pathname !== "/work" && !pageMaintenance.work && (
                   <Link
                     to="/work"
+                    className="maint-btn"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "6px",
-                      padding: "8px 16px",
-                      background: "rgba(255,255,255,0.08)",
-                      color: "#fff",
+                      gap: "8px",
+                      padding: "10px 18px",
+                      background: "#ffffff",
+                      color: "#0f172a",
+                      border: "1px solid #cbd5e1",
                       textDecoration: "none",
                       borderRadius: "8px",
-                      fontSize: "12px",
-                      fontWeight: "600",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      transition: "all 0.2s ease",
                     }}
                   >
-                    <Briefcase style={{ width: 14, height: 14 }} /> Portfolio Works
+                    <Briefcase style={{ width: 15, height: 15 }} /> Portfolio Works
                   </Link>
                 )}
                 {!pathname.startsWith("/contact") && !pageMaintenance.contact && (
                   <Link
                     to="/contact"
+                    className="maint-btn"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "6px",
-                      padding: "8px 16px",
-                      background: "rgba(255,255,255,0.08)",
-                      color: "#fff",
+                      gap: "8px",
+                      padding: "10px 18px",
+                      background: "#ffffff",
+                      color: "#0f172a",
+                      border: "1px solid #cbd5e1",
                       textDecoration: "none",
                       borderRadius: "8px",
-                      fontSize: "12px",
-                      fontWeight: "600",
+                      fontSize: "13px",
+                      fontWeight: "700",
+                      transition: "all 0.2s ease",
                     }}
                   >
-                    <Mail style={{ width: 14, height: 14 }} /> Contact Page
+                    <Mail style={{ width: 15, height: 15 }} /> Contact Page
                   </Link>
                 )}
               </div>
             </div>
           )}
 
-          {/* Admin link helper */}
-          <div style={{ marginTop: "20px" }}>
+          {/* Admin Login Helper Link */}
+          <div>
             <Link
               to="/admin/login"
-              style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", textDecoration: "none" }}
+              style={{ fontSize: "12px", fontWeight: "600", color: "#64748b", textDecoration: "none" }}
             >
               [ Administrator Login ]
             </Link>
