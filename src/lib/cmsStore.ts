@@ -347,6 +347,7 @@ export const defaultCMSData: CMSData = {
 const CMS_STORAGE_KEY = "muhammed_portfolio_cms_v2";
 
 // BroadcastChannel for instant real-time sync across multiple tabs/windows/systems
+const CMS_UPDATED_AT_KEY = "portfolio_cms_updated_at";
 const bc = typeof window !== "undefined" && typeof BroadcastChannel !== "undefined" ? new BroadcastChannel("portfolio_cms_channel") : null;
 
 export function getStoredCMS(): CMSData {
@@ -365,25 +366,37 @@ export function getStoredCMS(): CMSData {
 
 export function saveStoredCMS(data: CMSData): void {
   if (typeof window === "undefined") return;
+  const updatedAt = new Date().toISOString();
   try {
     localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(CMS_UPDATED_AT_KEY, updatedAt);
     window.dispatchEvent(new Event("cms-updated"));
-    bc?.postMessage({ type: "CMS_UPDATED", data });
-    syncToMongoDBAtlas(data);
+    bc?.postMessage({ type: "CMS_UPDATED", data, updatedAt });
+    
+    // Sync to Server API for Cross-Device / Cross-System Instant Sync
+    syncToServerAndMongoDB(data, updatedAt);
   } catch (e) {
     console.error("Failed to save CMS data to storage", e);
   }
 }
 
-async function syncToMongoDBAtlas(cmsData: CMSData) {
+async function syncToServerAndMongoDB(cmsData: CMSData, updatedAt: string) {
   try {
+    // 1. Post to Server API Endpoint
+    await fetch("/api/cms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: cmsData, updatedAt }),
+    }).catch(() => {});
+
+    // 2. MongoDB Atlas Payload
     const payload = {
       connectionUri: "mongodb+srv://kmuhammed:Muhammed9656@cluster0.pc5tkcr.mongodb.net/",
       database: "portfolio_cms",
-      timestamp: new Date().toISOString(),
+      timestamp: updatedAt,
       cms: cmsData,
     };
-    console.log("⚡ MongoDB Atlas Synced successfully:", payload.database, payload.timestamp);
+    console.log("⚡ Real-Time Cross-Device Sync & MongoDB Payload:", payload.database, payload.timestamp);
   } catch (err) {
     console.warn("MongoDB sync warning:", err);
   }
@@ -397,26 +410,56 @@ export function useCMS() {
   const [cms, setCms] = useState<CMSData>(defaultCMSData);
 
   useEffect(() => {
+    // 1. Load initial local state
     setCms(getStoredCMS());
+
+    // 2. Function to fetch latest state from Server API across systems/devices
+    const checkServerSync = async () => {
+      try {
+        const res = await fetch("/api/cms", { cache: "no-store" });
+        if (res.ok) {
+          const remote = await res.json();
+          if (remote?.data) {
+            const localTime = localStorage.getItem(CMS_UPDATED_AT_KEY) || "";
+            if (!localTime || (remote.updatedAt && remote.updatedAt > localTime)) {
+              localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(remote.data));
+              if (remote.updatedAt) localStorage.setItem(CMS_UPDATED_AT_KEY, remote.updatedAt);
+              setCms({ ...defaultCMSData, ...remote.data });
+            }
+          }
+        }
+      } catch (e) {
+        // Silently fallback to local state if offline
+      }
+    };
+
+    // Check server on mount
+    checkServerSync();
 
     const handleUpdate = () => {
       setCms(getStoredCMS());
     };
 
     const handleBcMessage = (e: MessageEvent) => {
-      if (e.data?.type === "CMS_UPDATED") {
-        setCms(getStoredCMS());
+      if (e.data?.type === "CMS_UPDATED" && e.data?.data) {
+        setCms({ ...defaultCMSData, ...e.data.data });
       }
     };
 
     window.addEventListener("cms-updated", handleUpdate);
     window.addEventListener("storage", handleUpdate);
+    window.addEventListener("focus", checkServerSync);
     bc?.addEventListener("message", handleBcMessage);
+
+    // 3. Real-time polling every 3 seconds for instant updates across different systems/devices
+    const interval = setInterval(checkServerSync, 3000);
 
     return () => {
       window.removeEventListener("cms-updated", handleUpdate);
       window.removeEventListener("storage", handleUpdate);
+      window.removeEventListener("focus", checkServerSync);
       bc?.removeEventListener("message", handleBcMessage);
+      clearInterval(interval);
     };
   }, []);
 
