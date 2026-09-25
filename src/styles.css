@@ -1119,9 +1119,9 @@ main {
 }
 
 .page-title h1 {
-    grid-column: 1/10;
+    grid-column: 1/8;
     font-family: var(--font-display);
-    font-size: clamp(38px, 6.2vw, 98px);
+    font-size: clamp(34px, 4.8vw, 84px);
     line-height: .82;
     letter-spacing: -0.02em;
     margin-top: 8vh;
@@ -1135,12 +1135,13 @@ main {
 
 .page-title>p:last-child,
 .page-title>p:not(:first-child):not(.work-page-count) {
-    grid-column: 7/11;
+    grid-column: 8/12;
     align-self: end;
-    font-size: clamp(14px, 1.15vw, 18px);
+    font-size: clamp(13px, 1.05vw, 16px);
     line-height: 1.45;
     color: var(--foreground);
-    margin-bottom: 8px
+    margin-bottom: 4px;
+    max-width: 360px
 }
 
 .work-scroll-mark {
@@ -1372,9 +1373,9 @@ main {
 }
 
 .contact-heading h1 {
-    grid-column: 1/9;
+    grid-column: 1/8;
     font-family: var(--font-display);
-    font-size: clamp(38px, 6.2vw, 98px);
+    font-size: clamp(34px, 4.8vw, 84px);
     line-height: .82;
     letter-spacing: -0.02em;
     margin-top: 8vh;
@@ -1387,12 +1388,12 @@ main {
 }
 
 .contact-heading>div {
-    grid-column: 9/13;
+    grid-column: 8/12;
     align-self: end;
     display: flex;
     flex-direction: column;
     gap: 18px;
-    margin-bottom: 8px
+    margin-bottom: 4px
 }
 
 .contact-heading>div>p {
