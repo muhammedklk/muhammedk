@@ -280,6 +280,11 @@ function AdminCMSPage() {
             display: "flex",
             flexDirection: "column",
             gap: "6px",
+            position: "sticky",
+            top: "65px",
+            height: "calc(100vh - 65px)",
+            overflowY: "auto",
+            alignSelf: "flex-start",
           }}
         >
           <div style={{ padding: "0 12px 12px", borderBottom: "1px solid #f1f5f9", marginBottom: "8px" }}>
@@ -979,23 +984,17 @@ function AdminCMSPage() {
             <div>
               <div style={{ marginBottom: "28px" }}>
                 <h2 style={{ fontFamily: "var(--font-display)", fontSize: "28px", fontWeight: "700", color: "#0f172a", margin: 0 }}>
-                  ABOUT PAGE CMS
+                  ABOUT PAGE CMS (ALL SECTIONS)
                 </h2>
                 <p style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>
-                  Manage biography, portrait image upload from desktop, lede text, and experience timeline.
+                  Manage biography, portrait image upload from desktop, lede text, philosophy, and experience timeline.
                 </p>
               </div>
 
+              {/* 1. Header & Title Section */}
               <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
-                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>Portrait Image & Title</h3>
-
-                <ImageUploader
-                  label="PORTRAIT IMAGE (UPLOAD FROM COMPUTER DESKTOP)"
-                  value={draft.aboutPage.portraitImage}
-                  onChange={(url) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, portraitImage: url } })}
-                />
-
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginTop: "16px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>1. Page Header & Subtitle</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>PAGE TITLE</label>
                     <input
@@ -1014,16 +1013,160 @@ function AdminCMSPage() {
                       style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
                     />
                   </div>
+                </div>
+              </div>
+
+              {/* 2. Portrait Card & Bio Section */}
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>2. Portrait Card & Biography</h3>
+
+                <ImageUploader
+                  label="PORTRAIT IMAGE (UPLOAD FROM COMPUTER DESKTOP)"
+                  value={draft.aboutPage.portraitImage}
+                  onChange={(url) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, portraitImage: url } })}
+                />
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginTop: "20px" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>SECTION LABEL</label>
+                    <input
+                      type="text"
+                      value={draft.aboutPage.sectionLabel}
+                      onChange={(e) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, sectionLabel: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
                   <div style={{ gridColumn: "1 / 3" }}>
-                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>BIOGRAPHY LEADE TEXT</label>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>LEDE PARAGRAPH (HIGHLIGHT)</label>
                     <textarea
-                      rows={3}
+                      rows={2}
                       value={draft.aboutPage.ledeText}
                       onChange={(e) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, ledeText: e.target.value } })}
                       style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
                     />
                   </div>
+                  <div style={{ gridColumn: "1 / 3" }}>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>BIOGRAPHY PARAGRAPH 1</label>
+                    <textarea
+                      rows={3}
+                      value={draft.aboutPage.paragraph1}
+                      onChange={(e) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, paragraph1: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                  <div style={{ gridColumn: "1 / 3" }}>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>BIOGRAPHY PARAGRAPH 2</label>
+                    <textarea
+                      rows={3}
+                      value={draft.aboutPage.paragraph2}
+                      onChange={(e) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, paragraph2: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
                 </div>
+              </div>
+
+              {/* 3. Design Philosophy Section Card */}
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>3. Design Philosophy</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>PHILOSOPHY TITLE</label>
+                    <input
+                      type="text"
+                      value={draft.aboutPage.philosophyTitle}
+                      onChange={(e) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, philosophyTitle: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                  <div style={{ gridColumn: "1 / 3" }}>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>PHILOSOPHY STATEMENT</label>
+                    <textarea
+                      rows={2}
+                      value={draft.aboutPage.philosophyText}
+                      onChange={(e) => setDraft({ ...draft, aboutPage: { ...draft.aboutPage, philosophyText: e.target.value } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. Experience Timeline Section Card */}
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                  <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", margin: 0 }}>4. Experience Timeline</h3>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newExp = [...(draft.aboutPage.experiences || []), { year: "2026", company: "NEW COMPANY", role: "UI/UX DESIGNER", description: "Role description..." }];
+                      setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
+                    }}
+                    style={{ padding: "6px 14px", background: "#0f172a", color: "#fff", border: "none", borderRadius: "6px", fontSize: "11px", fontWeight: "700", cursor: "pointer" }}
+                  >
+                    + Add Experience Row
+                  </button>
+                </div>
+
+                {(draft.aboutPage.experiences || []).map((exp, idx) => (
+                  <div key={idx} style={{ marginBottom: "16px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "8px", padding: "16px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "80px 1fr 1fr 40px", gap: "12px", marginBottom: "8px" }}>
+                      <input
+                        type="text"
+                        placeholder="Year"
+                        value={exp.year}
+                        onChange={(e) => {
+                          const newExp = [...draft.aboutPage.experiences];
+                          newExp[idx].year = e.target.value;
+                          setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
+                        }}
+                        style={{ padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Company"
+                        value={exp.company}
+                        onChange={(e) => {
+                          const newExp = [...draft.aboutPage.experiences];
+                          newExp[idx].company = e.target.value;
+                          setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
+                        }}
+                        style={{ padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Role"
+                        value={exp.role}
+                        onChange={(e) => {
+                          const newExp = [...draft.aboutPage.experiences];
+                          newExp[idx].role = e.target.value;
+                          setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
+                        }}
+                        style={{ padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newExp = draft.aboutPage.experiences.filter((_, i) => i !== idx);
+                          setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
+                        }}
+                        style={{ padding: "8px", background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca", borderRadius: "6px", cursor: "pointer" }}
+                      >
+                        <Trash2 style={{ width: 14, height: 14 }} />
+                      </button>
+                    </div>
+                    <textarea
+                      rows={2}
+                      placeholder="Description"
+                      value={exp.description}
+                      onChange={(e) => {
+                        const newExp = [...draft.aboutPage.experiences];
+                        newExp[idx].description = e.target.value;
+                        setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
+                      }}
+                      style={{ width: "100%", padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           )}

@@ -3,18 +3,33 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SectionLabel } from "./Sections";
 import { useCMS, type CaseStudyFull } from "@/lib/cmsStore";
 
-export function CaseStudy({ project }: { project: CaseStudyFull }) {
+export function CaseStudy({ project }: { project?: CaseStudyFull }) {
   const { cms } = useCMS();
-  const projectsList = cms.projects && cms.projects.length > 0 ? cms.projects : [];
-  const currentIndex = projectsList.findIndex((p) => p.slug === project.slug);
-  const nextProject = projectsList.length > 0 ? projectsList[(currentIndex + 1) % projectsList.length] : null;
+
+  if (!project) {
+    return (
+      <div className="inner-page" style={{ minHeight: "60vh", display: "grid", placeItems: "center", textAlign: "center", padding: "60px 24px" }}>
+        <div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "32px", marginBottom: "12px" }}>CASE STUDY NOT FOUND</h2>
+          <p style={{ fontSize: "14px", opacity: 0.7, marginBottom: "24px" }}>The requested portfolio work could not be located.</p>
+          <Link to="/work" className="text-link" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+            <ArrowLeft /> BACK TO WORK ARCHIVE
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const projectsList = Array.isArray(cms?.projects) && cms.projects.length > 0 ? cms.projects : [];
+  const currentIndex = projectsList.findIndex((p) => p?.slug === project.slug);
+  const nextProject = projectsList.length > 0 && currentIndex !== -1 ? projectsList[(currentIndex + 1) % projectsList.length] : null;
 
   const galleryImages =
-    project.galleryImages && project.galleryImages.length > 0
+    Array.isArray(project.galleryImages) && project.galleryImages.length > 0
       ? project.galleryImages
       : [project.image || "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80"];
 
-  const mainImage = project.image || galleryImages[0];
+  const mainImage = project.image || galleryImages[0] || "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80";
   const techList = Array.isArray(project.tech) ? project.tech : String(project.tech || "Figma, React, CSS").split(",");
 
   return (
@@ -170,8 +185,8 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
         <section className="next-project dark-band">
           <p>NEXT PROJECT</p>
           <Link to="/work/$slug" params={{ slug: nextProject.slug }}>
-            <span>{nextProject.number}</span>
-            {nextProject.title}
+            <span>{nextProject.number || "01"}</span>
+            {nextProject.title || "NEXT WORK"}
             <ArrowRight />
           </Link>
         </section>

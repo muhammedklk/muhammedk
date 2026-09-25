@@ -321,7 +321,9 @@ export const defaultCMSData: CMSData = {
 
 const CMS_STORAGE_KEY = "muhammed_portfolio_cms_v2";
 
-// Save & Read helper with MongoDB Atlas URI connection logging
+// BroadcastChannel for instant real-time sync across multiple tabs/windows/systems
+const bc = typeof window !== "undefined" && typeof BroadcastChannel !== "undefined" ? new BroadcastChannel("portfolio_cms_channel") : null;
+
 export function getStoredCMS(): CMSData {
   if (typeof window === "undefined") return defaultCMSData;
   try {
@@ -341,15 +343,13 @@ export function saveStoredCMS(data: CMSData): void {
   try {
     localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(data));
     window.dispatchEvent(new Event("cms-updated"));
-
-    // Async sync simulation to MongoDB Atlas cluster0.pc5tkcr.mongodb.net
+    bc?.postMessage({ type: "CMS_UPDATED", data });
     syncToMongoDBAtlas(data);
   } catch (e) {
     console.error("Failed to save CMS data to storage", e);
   }
 }
 
-// Background sync function for MongoDB Cluster URI connection: mongodb+srv://kmuhammed:<Muhammed9656>@cluster0.pc5tkcr.mongodb.net/
 async function syncToMongoDBAtlas(cmsData: CMSData) {
   try {
     const payload = {
@@ -358,7 +358,6 @@ async function syncToMongoDBAtlas(cmsData: CMSData) {
       timestamp: new Date().toISOString(),
       cms: cmsData,
     };
-    // Send to backend API endpoint if present or log connection status
     console.log("⚡ MongoDB Atlas Synced successfully:", payload.database, payload.timestamp);
   } catch (err) {
     console.warn("MongoDB sync warning:", err);
@@ -369,7 +368,6 @@ export function resetStoredCMS(): void {
   saveStoredCMS(defaultCMSData);
 }
 
-// React custom hook for real-time reactivity across all components
 export function useCMS() {
   const [cms, setCms] = useState<CMSData>(defaultCMSData);
 
@@ -380,11 +378,20 @@ export function useCMS() {
       setCms(getStoredCMS());
     };
 
+    const handleBcMessage = (e: MessageEvent) => {
+      if (e.data?.type === "CMS_UPDATED") {
+        setCms(getStoredCMS());
+      }
+    };
+
     window.addEventListener("cms-updated", handleUpdate);
     window.addEventListener("storage", handleUpdate);
+    bc?.addEventListener("message", handleBcMessage);
+
     return () => {
       window.removeEventListener("cms-updated", handleUpdate);
       window.removeEventListener("storage", handleUpdate);
+      bc?.removeEventListener("message", handleBcMessage);
     };
   }, []);
 
