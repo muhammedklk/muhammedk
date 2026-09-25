@@ -419,5 +419,6 @@ function AdminDashboardPage() {
         </div>
       )}
     </div>
-  );
+  </div>
+);
 }
