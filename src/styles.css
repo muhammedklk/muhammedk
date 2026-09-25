@@ -1091,33 +1091,64 @@ main {
 }
 
 .page-title {
-    min-height: 82svh;
+    min-height: auto;
+    padding-top: calc(var(--header-h) + clamp(40px, 6vh, 80px));
+    padding-bottom: clamp(40px, 5vh, 70px);
     align-content: end;
-    padding-top: calc(var(--header-h) + 30px);
-    padding-bottom: 60px
+    border-bottom: 1px solid var(--border)
 }
 
 .page-title>p:first-child {
-    grid-column: 1/3;
-    align-self: start
+    grid-column: 1/5;
+    align-self: start;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--muted-foreground)
+}
+
+.page-title .work-page-count {
+    grid-column: 8/13;
+    text-align: right;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--muted-foreground);
+    line-height: 1.4
 }
 
 .page-title h1 {
     grid-column: 1/13;
     font-family: var(--font-display);
-    font-size: clamp(28px, 5.5vw, 88px);
-    line-height: .9;
-    white-space: nowrap
+    font-size: clamp(38px, 7vw, 110px);
+    line-height: .86;
+    letter-spacing: -0.02em;
+    white-space: normal;
+    word-break: break-word;
+    margin-block: 28px 24px
 }
 
 .page-title h1 span {
     color: var(--primary)
 }
 
-.page-title>p:last-child {
-    grid-column: 9/13;
-    font-size: 16px;
-    margin-top: 35px
+.page-title>p:last-child,
+.page-title>p:not(:first-child):not(.work-page-count) {
+    grid-column: 6/12;
+    font-size: clamp(16px, 1.4vw, 22px);
+    line-height: 1.45;
+    color: var(--foreground);
+    margin-top: 10px
+}
+
+.work-scroll-mark {
+    grid-column: 12/13;
+    justify-self: end;
+    align-self: end;
+    width: 28px;
+    height: 28px;
+    color: var(--primary);
+    margin-top: 10px
 }
 
 .inner-page .selected-work {
@@ -1322,23 +1353,31 @@ main {
 }
 
 .contact-heading {
-    min-height: 700px;
+    min-height: auto;
+    padding-top: calc(var(--header-h) + clamp(40px, 6vh, 80px));
+    padding-bottom: clamp(40px, 5vh, 70px);
     align-content: end;
-    padding-top: calc(var(--header-h) + 30px);
-    padding-bottom: 70px
+    border-bottom: 1px solid var(--border)
 }
 
 .contact-heading>p {
-    grid-column: 1/3;
-    align-self: start
+    grid-column: 1/5;
+    align-self: start;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--muted-foreground)
 }
 
 .contact-heading h1 {
     grid-column: 1/13;
     font-family: var(--font-display);
-    font-size: clamp(28px, 5.5vw, 88px);
-    line-height: .9;
-    white-space: nowrap
+    font-size: clamp(38px, 7vw, 110px);
+    line-height: .86;
+    letter-spacing: -0.02em;
+    white-space: normal;
+    word-break: break-word;
+    margin-block: 28px 24px
 }
 
 .contact-heading h1 span {
@@ -1346,11 +1385,12 @@ main {
 }
 
 .contact-heading>div {
-    grid-column: 10/13;
+    grid-column: 7/13;
     align-self: end;
     display: flex;
     flex-direction: column;
-    gap: 22px
+    gap: 22px;
+    margin-top: 10px
 }
 
 .contact-heading>div>p {
@@ -1461,20 +1501,22 @@ main {
 }
 
 .case-hero {
-    min-height: 55svh;
-    padding-top: calc(var(--header-h) + 30px);
+    min-height: auto;
+    padding-top: calc(var(--header-h) + clamp(40px, 6vh, 80px));
+    padding-bottom: clamp(35px, 4vh, 55px);
     align-content: end;
-    padding-bottom: 45px
+    border-bottom: 1px solid var(--border)
 }
 
 .back-link {
-    grid-column: 1/3;
+    grid-column: 1/5;
     align-self: start;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 10px;
-    font-weight: 700
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em
 }
 
 .back-link svg {
@@ -1482,20 +1524,27 @@ main {
 }
 
 .case-number {
-    grid-column: 1/3
+    grid-column: 8/13;
+    justify-self: end;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--muted-foreground)
 }
 
 .case-hero h1 {
     grid-column: 1/13;
     font-family: var(--font-display);
-    font-size: clamp(28px, 5.5vw, 88px);
-    line-height: .9;
-    margin: 30px 0;
-    white-space: nowrap
+    font-size: clamp(38px, 7vw, 110px);
+    line-height: .86;
+    letter-spacing: -0.02em;
+    margin: 24px 0 28px;
+    white-space: normal;
+    word-break: break-word
 }
 
 .case-meta {
-    grid-column: 8/13;
+    grid-column: 6/13;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 25px
@@ -3566,33 +3615,53 @@ main {
         font-size: 24px
     }
 
+    .page-title,
+    .contact-heading,
+    .case-hero,
     .work-page-title {
-        min-height: calc(88svh - var(--header-h));
-        padding-top: 45px
+        min-height: auto;
+        padding-top: calc(var(--header-h) + 25px);
+        padding-bottom: 35px
     }
 
-    .work-page-title>p:first-child {
-        grid-column: 1/3
+    .page-title>p:first-child,
+    .contact-heading>p,
+    .back-link {
+        grid-column: 1/3;
+        font-size: 10px
     }
 
-    .work-page-title .work-page-count {
-        grid-column: 3/5
+    .page-title .work-page-count,
+    .case-number {
+        grid-column: 3/5;
+        text-align: right;
+        font-size: 10px
     }
 
-    .work-page-title h1 {
+    .page-title h1,
+    .contact-heading h1,
+    .case-hero h1 {
         grid-column: 1/5;
-        font-size: clamp(48px, 15vw, 70px);
-        margin-top: 80px
+        font-size: clamp(34px, 11vw, 56px);
+        line-height: .92;
+        margin-block: 20px 16px;
+        white-space: normal;
+        word-break: break-word
     }
 
-    .work-page-title>p:nth-of-type(3) {
-        grid-column: 1/4;
-        font-size: 14px
+    .page-title>p:last-child,
+    .page-title>p:not(:first-child):not(.work-page-count),
+    .contact-heading>div,
+    .case-meta {
+        grid-column: 1/5;
+        font-size: 14px;
+        margin-top: 10px
     }
 
     .work-scroll-mark {
         grid-column: 4/5;
-        width: 30px
+        width: 24px;
+        margin-top: 10px
     }
 
     .work-index {
