@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { FileCode, Code2, Hammer, Pencil, Sparkles, Layers, Cpu, Home, Briefcase, Mail, User } from "lucide-react";
+import { Wrench, Home, Briefcase, Mail, User, Sparkles, RefreshCw, ArrowRight } from "lucide-react";
 import { useCMS } from "@/lib/cmsStore";
 
 interface MaintenanceGuardProps {
@@ -59,32 +59,32 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
           position: "relative",
           zIndex: 999,
           backgroundImage:
-            "linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       >
-        {/* Keyframe animations for editing, coding & building */}
+        {/* Keyframe animations for animated Build & Edit icon */}
         <style>{`
           @keyframes spinOrbit {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
           }
-          @keyframes counterOrbit {
+          @keyframes counterSpin {
             from { transform: rotate(0deg); }
             to { transform: rotate(-360deg); }
           }
-          @keyframes editCraft {
-            0%, 100% { transform: rotate(-10deg) translateY(0); }
-            50% { transform: rotate(15deg) translateY(-4px); }
+          @keyframes toolSwing {
+            0% { transform: rotate(-18deg) scale(1); }
+            50% { transform: rotate(18deg) scale(1.12); }
+            100% { transform: rotate(-18deg) scale(1); }
           }
-          @keyframes scanLine {
-            0% { top: 10%; opacity: 0.3; }
-            50% { top: 80%; opacity: 0.9; }
-            100% { top: 10%; opacity: 0.3; }
+          @keyframes sparkFloat {
+            0%, 100% { transform: translateY(0) scale(0.85); opacity: 0.6; }
+            50% { transform: translateY(-6px) scale(1.25); opacity: 1; }
           }
-          @keyframes pulseBadge {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+          @keyframes lineScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
           }
           @keyframes pingPulse {
             0% { transform: scale(1); opacity: 0.8; }
@@ -98,83 +98,91 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
           }
         `}</style>
 
-        <div style={{ maxWidth: "640px", width: "100%", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "24px", padding: "52px 36px", boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)" }}>
+        <div style={{ maxWidth: "620px", width: "100%", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "24px", padding: "48px 36px", boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)" }}>
           
-          {/* EDIT & BUILD ANIMATED SCENE */}
-          <div style={{ position: "relative", width: "120px", height: "120px", margin: "0 auto 32px" }}>
+          {/* Active "Editing & Building" Animation Icon Showcase */}
+          <div style={{ position: "relative", width: "110px", height: "110px", margin: "0 auto 32px" }}>
             
-            {/* Outer Tech Orbit Circle */}
+            {/* Spinning Orbit Ring */}
             <div
               style={{
                 position: "absolute",
                 inset: 0,
                 borderRadius: "50%",
-                border: "2px dashed #bfdbfe",
-                animation: "spinOrbit 16s linear infinite",
+                border: "2px dashed #3b82f6",
+                animation: "spinOrbit 10s linear infinite",
               }}
-            >
-              {/* Floating Node 1: Code Icon */}
-              <div style={{ position: "absolute", top: "-10px", left: "calc(50% - 14px)", background: "#ffffff", border: "1px solid #3b82f6", borderRadius: "50%", padding: "4px", color: "#2563eb", boxShadow: "0 4px 10px rgba(37,99,235,0.15)", animation: "counterOrbit 16s linear infinite" }}>
-                <Code2 style={{ width: 14, height: 14 }} />
-              </div>
+            />
 
-              {/* Floating Node 2: Cpu Node */}
-              <div style={{ position: "absolute", bottom: "-10px", right: "calc(50% - 14px)", background: "#ffffff", border: "1px solid #10b981", borderRadius: "50%", padding: "4px", color: "#10b981", boxShadow: "0 4px 10px rgba(16,185,129,0.15)", animation: "counterOrbit 16s linear infinite" }}>
-                <Cpu style={{ width: 14, height: 14 }} />
-              </div>
-
-              {/* Floating Node 3: Layers Node */}
-              <div style={{ position: "absolute", top: "calc(50% - 14px)", left: "-10px", background: "#ffffff", border: "1px solid #8b5cf6", borderRadius: "50%", padding: "4px", color: "#8b5cf6", boxShadow: "0 4px 10px rgba(139,92,246,0.15)", animation: "counterOrbit 16s linear infinite" }}>
-                <Layers style={{ width: 14, height: 14 }} />
-              </div>
-            </div>
-
-            {/* Central Code Window & Editing Tool Badge */}
+            {/* Orbiting Floating Element Badges */}
             <div
               style={{
                 position: "absolute",
-                inset: "14px",
-                borderRadius: "20px",
-                background: "linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%)",
-                border: "1.5px solid #93c5fd",
+                inset: "-4px",
+                animation: "spinOrbit 15s linear infinite",
+                pointerEvents: "none",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  background: "#2563eb",
+                  color: "#ffffff",
+                  padding: "4px 8px",
+                  borderRadius: "100px",
+                  fontSize: "9px",
+                  fontWeight: "800",
+                  letterSpacing: "0.05em",
+                  boxShadow: "0 4px 10px rgba(37, 99, 235, 0.3)",
+                  animation: "counterSpin 15s linear infinite",
+                }}
+              >
+                &lt;BUILD/&gt;
+              </div>
+
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "50%",
+                  transform: "translate(-50%, 50%)",
+                  background: "#0f172a",
+                  color: "#ffffff",
+                  padding: "4px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  animation: "counterSpin 15s linear infinite",
+                }}
+              >
+                <Sparkles style={{ width: 12, height: 12, color: "#ccff00" }} />
+              </div>
+            </div>
+
+            {/* Central Glowing Build Badge Container */}
+            <div
+              style={{
+                position: "absolute",
+                inset: "10px",
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)",
+                border: "2px solid #bfdbfe",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 12px 28px -6px rgba(37, 99, 235, 0.2)",
-                position: "relative",
-                overflow: "hidden",
+                boxShadow: "0 12px 28px -6px rgba(37, 99, 235, 0.25)",
               }}
             >
-              {/* Scanline Effect */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  height: "2px",
-                  background: "linear-gradient(90deg, transparent, #2563eb, transparent)",
-                  animation: "scanLine 3s ease-in-out infinite",
-                }}
-              />
+              {/* Active Pivoting / Swinging Tool Icon */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", animation: "toolSwing 2s ease-in-out infinite" }}>
+                <Wrench style={{ width: 38, height: 38, color: "#2563eb", strokeWidth: 2.2 }} />
+              </div>
 
-              {/* Base Code Window Icon */}
-              <FileCode style={{ width: 40, height: 40, color: "#2563eb" }} />
-
-              {/* Active Editing Pencil / Crafting Tool Icon */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "14px",
-                  right: "14px",
-                  background: "#2563eb",
-                  color: "#ffffff",
-                  borderRadius: "8px",
-                  padding: "5px",
-                  boxShadow: "0 4px 12px rgba(37, 99, 235, 0.3)",
-                  animation: "editCraft 2s ease-in-out infinite",
-                }}
-              >
-                <Pencil style={{ width: 16, height: 16 }} />
+              {/* Floating Sparkle accent */}
+              <div style={{ position: "absolute", top: "14px", right: "14px", animation: "sparkFloat 1.8s ease-in-out infinite" }}>
+                <Sparkles style={{ width: 16, height: 16, color: "#2563eb" }} />
               </div>
             </div>
           </div>
@@ -185,7 +193,7 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
               display: "inline-flex",
               alignItems: "center",
               gap: "10px",
-              padding: "8px 18px",
+              padding: "8px 16px",
               background: "#fef2f2",
               border: "1px solid #fecaca",
               borderRadius: "100px",
@@ -193,8 +201,7 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
               fontSize: "11px",
               fontWeight: "700",
               letterSpacing: "0.08em",
-              marginBottom: "22px",
-              animation: "pulseBadge 3s ease-in-out infinite",
+              marginBottom: "20px",
             }}
           >
             <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
@@ -211,7 +218,7 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
               />
               <span style={{ relative: "relative", display: "inline-flex", width: "10px", height: "10px", borderRadius: "50%", background: "#dc2626" }} />
             </span>
-            {globalMaintenance ? "WEBSITE UNDER SCHEDULED MAINTENANCE & BUILDING" : `${pageName} UNDER ACTIVE MAINTENANCE & EDITING`}
+            {globalMaintenance ? "WEBSITE UNDER SCHEDULED MAINTENANCE" : `${pageName} UNDER MAINTENANCE`}
           </div>
 
           {/* Main Title */}
@@ -226,12 +233,12 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
               letterSpacing: "-0.02em",
             }}
           >
-            EDITING & BUILDING THE <span style={{ color: "#2563eb" }}>DIGITAL EXPERIENCE.</span>
+            WE'RE UPGRADING THE <span style={{ color: "#2563eb" }}>DIGITAL EXPERIENCE.</span>
           </h1>
 
           {/* Description Paragraph */}
           <p style={{ fontSize: "15px", color: "#475569", lineHeight: 1.65, marginBottom: "32px" }}>
-            The {pageName.toLowerCase()} is currently being edited and built with new content and performance enhancements. We'll be live shortly!
+            The {pageName.toLowerCase()} is currently undergoing scheduled updates and content enhancements. We'll be back online shortly!
           </p>
 
           {/* Navigation Card for Available Sections */}
@@ -242,6 +249,7 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
                 border: "1px solid #cbd5e1",
                 borderRadius: "16px",
                 padding: "24px 20px",
+                marginBottom: "28px",
               }}
             >
               <p style={{ fontSize: "11px", fontWeight: "700", color: "#2563eb", marginBottom: "16px", letterSpacing: "0.1em", textTransform: "uppercase" }}>
@@ -339,6 +347,7 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
               </div>
             </div>
           )}
+
         </div>
       </div>
     );
