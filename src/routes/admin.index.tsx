@@ -27,6 +27,7 @@ import {
   Image as ImageIcon,
   CheckCircle2,
   AlertTriangle,
+  X,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
