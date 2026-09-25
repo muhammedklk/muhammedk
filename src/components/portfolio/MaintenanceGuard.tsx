@@ -279,15 +279,6 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
             </div>
           )}
 
-          {/* Admin Login Helper Link */}
-          <div>
-            <Link
-              to="/admin/login"
-              style={{ fontSize: "12px", fontWeight: "600", color: "#64748b", textDecoration: "none" }}
-            >
-              [ Administrator Login ]
-            </Link>
-          </div>
         </div>
       </div>
     );
