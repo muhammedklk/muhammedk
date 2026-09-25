@@ -24,7 +24,7 @@ export function logoutAdmin(): void {
 }
 
 export function useAdminAuth(): { authenticated: boolean; login: (pass: string) => boolean; logout: () => void } {
-  const [authenticated, setAuthenticated] = useState<boolean>(() => isAdminAuthenticated());
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
     setAuthenticated(isAdminAuthenticated());

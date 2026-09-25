@@ -54,7 +54,7 @@ export function resetStoredProjects(): Project[] {
 }
 
 export function useProjects(): Project[] {
-  const [projectsList, setProjectsList] = useState<Project[]>(() => getStoredProjects());
+  const [projectsList, setProjectsList] = useState<Project[]>(defaultProjects);
 
   useEffect(() => {
     setProjectsList(getStoredProjects());
@@ -101,7 +101,7 @@ export function saveContactMessage(msg: Omit<ContactMessage, "id" | "createdAt">
 }
 
 export function useMessages(): ContactMessage[] {
-  const [messages, setMessages] = useState<ContactMessage[]>(() => getStoredMessages());
+  const [messages, setMessages] = useState<ContactMessage[]>([]);
 
   useEffect(() => {
     setMessages(getStoredMessages());
