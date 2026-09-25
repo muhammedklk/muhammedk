@@ -1091,10 +1091,10 @@ main {
 }
 
 .page-title {
-    min-height: 80svh;
+    min-height: 82svh;
     align-content: end;
     padding-top: calc(var(--header-h) + 30px);
-    padding-bottom: 55px;
+    padding-bottom: 50px;
     position: relative
 }
 
@@ -1121,9 +1121,9 @@ main {
 .page-title h1 {
     grid-column: 1/10;
     font-family: var(--font-display);
-    font-size: clamp(42px, 6.8vw, 108px);
-    line-height: .78;
-    letter-spacing: -0.03em;
+    font-size: clamp(38px, 6.2vw, 98px);
+    line-height: .82;
+    letter-spacing: -0.02em;
     margin-top: 8vh;
     margin-bottom: 0;
     white-space: normal
@@ -1135,13 +1135,12 @@ main {
 
 .page-title>p:last-child,
 .page-title>p:not(:first-child):not(.work-page-count) {
-    grid-column: 8/13;
+    grid-column: 7/11;
     align-self: end;
     font-size: clamp(14px, 1.15vw, 18px);
     line-height: 1.45;
     color: var(--foreground);
-    margin-bottom: 6px;
-    max-width: 400px
+    margin-bottom: 8px
 }
 
 .work-scroll-mark {
