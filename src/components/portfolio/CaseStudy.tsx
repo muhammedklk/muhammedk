@@ -1,26 +1,30 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { type Project } from "@/data/projects";
-import { Button } from "@/components/ui/button";
 import { SectionLabel } from "./Sections";
 import { useCMS, type CaseStudyFull } from "@/lib/cmsStore";
 
 export function CaseStudy({ project }: { project: CaseStudyFull }) {
   const { cms } = useCMS();
-  const projectsList = cms.projects;
+  const projectsList = cms.projects && cms.projects.length > 0 ? cms.projects : [];
   const currentIndex = projectsList.findIndex((p) => p.slug === project.slug);
-  const nextProject = projectsList[(currentIndex + 1) % projectsList.length];
+  const nextProject = projectsList.length > 0 ? projectsList[(currentIndex + 1) % projectsList.length] : null;
 
-  const galleryImages = project.galleryImages && project.galleryImages.length > 0 ? project.galleryImages : [project.image];
+  const galleryImages =
+    project.galleryImages && project.galleryImages.length > 0
+      ? project.galleryImages
+      : [project.image || "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80"];
+
+  const mainImage = project.image || galleryImages[0];
+  const techList = Array.isArray(project.tech) ? project.tech : String(project.tech || "Figma, React, CSS").split(",");
 
   return (
-    <>
+    <div className="inner-page work-detail-page">
       <section className="case-hero editorial-grid">
         <Link to="/work" className="back-link">
           <ArrowLeft /> ALL WORK
         </Link>
-        <p className="case-number">PROJECT {project.number}</p>
-        <h1>{project.title}</h1>
+        <p className="case-number">PROJECT {project.number || "01"}</p>
+        <h1>{project.title || "CASE STUDY"}</h1>
         <div className="case-meta">
           <div>
             <span>ROLE</span>
@@ -28,7 +32,7 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
           </div>
           <div>
             <span>DISCIPLINE</span>
-            <p>{project.category}</p>
+            <p>{project.category || "UI/UX Design & Development"}</p>
           </div>
           <div>
             <span>TIMELINE</span>
@@ -39,8 +43,8 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
 
       <div className="case-main-image" data-cursor="view">
         <img
-          src={project.image}
-          alt={`${project.title} primary interface presentation`}
+          src={mainImage}
+          alt={`${project.title || "Project"} primary interface presentation`}
           width={project.dimensions?.[0] || 1600}
           height={project.dimensions?.[1] || 900}
         />
@@ -48,14 +52,14 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
 
       <section className="case-overview editorial-grid">
         <SectionLabel>OVERVIEW</SectionLabel>
-        <h2>{project.description}</h2>
+        <h2>{project.description || "A modern digital experience built for clarity and impact."}</h2>
         <div>
           <span>CHALLENGE</span>
-          <p>{project.challenge}</p>
+          <p>{project.challenge || "Balancing user needs with clean visual storytelling."}</p>
         </div>
         <div>
           <span>OBJECTIVE</span>
-          <p>{project.objective}</p>
+          <p>{project.objective || "Delivering an intuitive, responsive interface."}</p>
         </div>
       </section>
 
@@ -98,7 +102,7 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
           <figure key={imgIdx} className="gallery-large" style={{ marginBottom: "30px" }}>
             <img
               src={imgUrl}
-              alt={`${project.title} presentation slide ${imgIdx + 1}`}
+              alt={`${project.title || "Project"} slide ${imgIdx + 1}`}
               loading="lazy"
               width={project.dimensions?.[0] || 1600}
               height={project.dimensions?.[1] || 900}
@@ -140,8 +144,8 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
         </div>
         <div className="device-crop">
           <img
-            src={project.image}
-            alt={`${project.title} responsive presentation`}
+            src={mainImage}
+            alt={`${project.title || "Project"} responsive presentation`}
             loading="lazy"
             width={project.dimensions?.[0] || 1600}
             height={project.dimensions?.[1] || 900}
@@ -151,14 +155,14 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
 
       <section className="case-result editorial-grid">
         <SectionLabel>FINAL RESULT</SectionLabel>
-        <h2>{project.result}</h2>
+        <h2>{project.result || "A highly polished, responsive web experience."}</h2>
         <div>
           <span>KEY LEARNINGS</span>
           <p>{project.keyLearnings || "Strong outcomes begin with clear hierarchy. Early structural decisions make later visual choices far more coherent."}</p>
         </div>
         <div>
           <span>TECH STACK</span>
-          <p>{Array.isArray(project.tech) ? project.tech.join(" / ") : String(project.tech)}</p>
+          <p>{techList.join(" / ")}</p>
         </div>
       </section>
 
@@ -172,6 +176,6 @@ export function CaseStudy({ project }: { project: CaseStudyFull }) {
           </Link>
         </section>
       )}
-    </>
+    </div>
   );
 }
