@@ -229,18 +229,22 @@ export function Footer() {
   );
 }
 
+import { MaintenanceGuard } from "./MaintenanceGuard";
+
 export function SiteLayout({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isAdmin = pathname.startsWith("/admin");
 
   return (
-    <div className="app-container">
-      {!isAdmin && <Header />}
-      <CustomCursor />
-      <main key={pathname} id="top" className={isAdmin ? "" : "page-enter"}>
-        {children}
-      </main>
-      {!isAdmin && <Footer />}
-    </div>
+    <MaintenanceGuard>
+      <div className="app-container">
+        {!isAdmin && <Header />}
+        <CustomCursor />
+        <main key={pathname} id="top" className={isAdmin ? "" : "page-enter"}>
+          {children}
+        </main>
+        {!isAdmin && <Footer />}
+      </div>
+    </MaintenanceGuard>
   );
 }
