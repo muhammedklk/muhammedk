@@ -160,8 +160,8 @@ function AdminCMSPage() {
     const targetIdx = direction === "up" ? index - 1 : index + 1;
     if (targetIdx < 0 || targetIdx >= draft.projects.length) return;
     const newProjs = [...draft.projects];
-    const temp = newProjs[index];
-    newProjs[index] = newProjs[targetIdx];
+    const temp = newProjs[index]!;
+    newProjs[index] = newProjs[targetIdx]!;
     newProjs[targetIdx] = temp;
     // re-number
     const renumbered = newProjs.map((p, i) => ({ ...p, number: String(i + 1).padStart(2, "0") }));
@@ -725,7 +725,7 @@ function AdminCMSPage() {
                       value={st.n}
                       onChange={(e) => {
                         const newS = [...draft.home.process.steps];
-                        newS[idx].n = e.target.value;
+                        if (newS[idx]) newS[idx] = { ...newS[idx]!, n: e.target.value };
                         setDraft({ ...draft, home: { ...draft.home, process: { ...draft.home.process, steps: newS } } });
                       }}
                       style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -735,7 +735,7 @@ function AdminCMSPage() {
                       value={st.t}
                       onChange={(e) => {
                         const newS = [...draft.home.process.steps];
-                        newS[idx].t = e.target.value;
+                        if (newS[idx]) newS[idx] = { ...newS[idx]!, t: e.target.value };
                         setDraft({ ...draft, home: { ...draft.home, process: { ...draft.home.process, steps: newS } } });
                       }}
                       style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -745,7 +745,7 @@ function AdminCMSPage() {
                       value={st.d}
                       onChange={(e) => {
                         const newS = [...draft.home.process.steps];
-                        newS[idx].d = e.target.value;
+                        if (newS[idx]) newS[idx] = { ...newS[idx]!, d: e.target.value };
                         setDraft({ ...draft, home: { ...draft.home, process: { ...draft.home.process, steps: newS } } });
                       }}
                       style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -846,7 +846,7 @@ function AdminCMSPage() {
                       value={serv.n}
                       onChange={(e) => {
                         const newItems = [...draft.home.services.items];
-                        newItems[idx].n = e.target.value;
+                        if (newItems[idx]) newItems[idx] = { ...newItems[idx]!, n: e.target.value };
                         setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, items: newItems } } });
                       }}
                       style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -856,7 +856,7 @@ function AdminCMSPage() {
                       value={serv.t}
                       onChange={(e) => {
                         const newItems = [...draft.home.services.items];
-                        newItems[idx].t = e.target.value;
+                        if (newItems[idx]) newItems[idx] = { ...newItems[idx]!, t: e.target.value };
                         setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, items: newItems } } });
                       }}
                       style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -866,7 +866,7 @@ function AdminCMSPage() {
                       value={serv.d}
                       onChange={(e) => {
                         const newItems = [...draft.home.services.items];
-                        newItems[idx].d = e.target.value;
+                        if (newItems[idx]) newItems[idx] = { ...newItems[idx]!, d: e.target.value };
                         setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, items: newItems } } });
                       }}
                       style={{ padding: "8px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -898,7 +898,7 @@ function AdminCMSPage() {
                         value={fq.q}
                         onChange={(e) => {
                           const newF = [...draft.home.faq.items];
-                          newF[idx].q = e.target.value;
+                          if (newF[idx]) newF[idx] = { ...newF[idx]!, q: e.target.value };
                           setDraft({ ...draft, home: { ...draft.home, faq: { ...draft.home.faq, items: newF } } });
                         }}
                         style={{ flex: 1, padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px", fontWeight: "700" }}
@@ -919,7 +919,7 @@ function AdminCMSPage() {
                       value={fq.a}
                       onChange={(e) => {
                         const newF = [...draft.home.faq.items];
-                        newF[idx].a = e.target.value;
+                        if (newF[idx]) newF[idx] = { ...newF[idx]!, a: e.target.value };
                         setDraft({ ...draft, home: { ...draft.home, faq: { ...draft.home.faq, items: newF } } });
                       }}
                       style={{ width: "100%", padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -1116,8 +1116,8 @@ function AdminCMSPage() {
                         placeholder="Year"
                         value={exp.year}
                         onChange={(e) => {
-                          const newExp = [...draft.aboutPage.experiences];
-                          newExp[idx].year = e.target.value;
+                          const newExp = [...(draft.aboutPage.experiences || [])];
+                          if (newExp[idx]) newExp[idx] = { ...newExp[idx]!, year: e.target.value };
                           setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
                         }}
                         style={{ padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}
@@ -1127,8 +1127,8 @@ function AdminCMSPage() {
                         placeholder="Company"
                         value={exp.company}
                         onChange={(e) => {
-                          const newExp = [...draft.aboutPage.experiences];
-                          newExp[idx].company = e.target.value;
+                          const newExp = [...(draft.aboutPage.experiences || [])];
+                          if (newExp[idx]) newExp[idx] = { ...newExp[idx]!, company: e.target.value };
                           setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
                         }}
                         style={{ padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}
@@ -1138,8 +1138,8 @@ function AdminCMSPage() {
                         placeholder="Role"
                         value={exp.role}
                         onChange={(e) => {
-                          const newExp = [...draft.aboutPage.experiences];
-                          newExp[idx].role = e.target.value;
+                          const newExp = [...(draft.aboutPage.experiences || [])];
+                          if (newExp[idx]) newExp[idx] = { ...newExp[idx]!, role: e.target.value };
                           setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
                         }}
                         style={{ padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -1147,7 +1147,7 @@ function AdminCMSPage() {
                       <button
                         type="button"
                         onClick={() => {
-                          const newExp = draft.aboutPage.experiences.filter((_, i) => i !== idx);
+                          const newExp = (draft.aboutPage.experiences || []).filter((_, i) => i !== idx);
                           setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
                         }}
                         style={{ padding: "8px", background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca", borderRadius: "6px", cursor: "pointer" }}
@@ -1160,8 +1160,8 @@ function AdminCMSPage() {
                       placeholder="Description"
                       value={exp.description}
                       onChange={(e) => {
-                        const newExp = [...draft.aboutPage.experiences];
-                        newExp[idx].description = e.target.value;
+                        const newExp = [...(draft.aboutPage.experiences || [])];
+                        if (newExp[idx]) newExp[idx] = { ...newExp[idx]!, description: e.target.value };
                         setDraft({ ...draft, aboutPage: { ...draft.aboutPage, experiences: newExp } });
                       }}
                       style={{ width: "100%", padding: "8px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "12px" }}
@@ -1294,8 +1294,8 @@ function AdminCMSPage() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "12px 16px",
-                        background: activeProject.slug === p.slug ? "#eff6ff" : "#f8fafc",
-                        border: activeProject.slug === p.slug ? "1px solid #3b82f6" : "1px solid #cbd5e1",
+                        background: activeProject?.slug === p.slug ? "#eff6ff" : "#f8fafc",
+                        border: activeProject?.slug === p.slug ? "1px solid #3b82f6" : "1px solid #cbd5e1",
                         borderRadius: "8px",
                         cursor: "pointer",
                       }}
@@ -1459,12 +1459,16 @@ function AdminCMSPage() {
                                 type="text"
                                 value={card.n}
                                 onChange={(e) => {
-                                  const currentCards = [...(activeProject.discoveryCards || [
-                                    { n: "01", t: "USER FLOW", d: "" },
-                                    { n: "02", t: "WIREFRAMES", d: "" },
-                                    { n: "03", t: "VISUAL DESIGN", d: "" }
-                                  ])];
-                                  currentCards[cardIdx] = { ...currentCards[cardIdx], n: e.target.value };
+                                  const baseCards = activeProject.discoveryCards && activeProject.discoveryCards.length === 3
+                                    ? activeProject.discoveryCards
+                                    : [
+                                        { n: "01", t: "USER FLOW", d: "" },
+                                        { n: "02", t: "WIREFRAMES", d: "" },
+                                        { n: "03", t: "VISUAL DESIGN", d: "" },
+                                      ];
+                                  const currentCards = [...baseCards];
+                                  const existing = currentCards[cardIdx] || { n: "01", t: "", d: "" };
+                                  currentCards[cardIdx] = { ...existing, n: e.target.value };
                                   updateProjectField(activeProject.slug, "discoveryCards", currentCards);
                                 }}
                                 style={{ width: "50px", padding: "6px", border: "1px solid #cbd5e1", borderRadius: "4px", fontSize: "12px", fontWeight: "700" }}
@@ -1473,12 +1477,16 @@ function AdminCMSPage() {
                                 type="text"
                                 value={card.t}
                                 onChange={(e) => {
-                                  const currentCards = [...(activeProject.discoveryCards || [
-                                    { n: "01", t: "USER FLOW", d: "" },
-                                    { n: "02", t: "WIREFRAMES", d: "" },
-                                    { n: "03", t: "VISUAL DESIGN", d: "" }
-                                  ])];
-                                  currentCards[cardIdx] = { ...currentCards[cardIdx], t: e.target.value };
+                                  const baseCards = activeProject.discoveryCards && activeProject.discoveryCards.length === 3
+                                    ? activeProject.discoveryCards
+                                    : [
+                                        { n: "01", t: "USER FLOW", d: "" },
+                                        { n: "02", t: "WIREFRAMES", d: "" },
+                                        { n: "03", t: "VISUAL DESIGN", d: "" },
+                                      ];
+                                  const currentCards = [...baseCards];
+                                  const existing = currentCards[cardIdx] || { n: "01", t: "", d: "" };
+                                  currentCards[cardIdx] = { ...existing, t: e.target.value };
                                   updateProjectField(activeProject.slug, "discoveryCards", currentCards);
                                 }}
                                 style={{ width: "100%", padding: "6px", border: "1px solid #cbd5e1", borderRadius: "4px", fontSize: "12px", fontWeight: "700" }}
@@ -1488,12 +1496,16 @@ function AdminCMSPage() {
                               rows={3}
                               value={card.d}
                               onChange={(e) => {
-                                const currentCards = [...(activeProject.discoveryCards || [
-                                  { n: "01", t: "USER FLOW", d: "" },
-                                  { n: "02", t: "WIREFRAMES", d: "" },
-                                  { n: "03", t: "VISUAL DESIGN", d: "" }
-                                ])];
-                                currentCards[cardIdx] = { ...currentCards[cardIdx], d: e.target.value };
+                                const baseCards = activeProject.discoveryCards && activeProject.discoveryCards.length === 3
+                                  ? activeProject.discoveryCards
+                                  : [
+                                      { n: "01", t: "USER FLOW", d: "" },
+                                      { n: "02", t: "WIREFRAMES", d: "" },
+                                      { n: "03", t: "VISUAL DESIGN", d: "" },
+                                    ];
+                                const currentCards = [...baseCards];
+                                const existing = currentCards[cardIdx] || { n: "01", t: "", d: "" };
+                                currentCards[cardIdx] = { ...existing, d: e.target.value };
                                 updateProjectField(activeProject.slug, "discoveryCards", currentCards);
                               }}
                               style={{ width: "100%", padding: "6px", border: "1px solid #cbd5e1", borderRadius: "4px", fontSize: "12px" }}
