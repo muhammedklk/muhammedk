@@ -30,10 +30,21 @@ export function CaseStudy({ project }: { project?: CaseStudyFull }) {
       : [project.image || "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80"];
 
   const mainImage = project.image || galleryImages[0] || "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80";
+  const devImage = project.devDeviceImage || mainImage;
   const techList = Array.isArray(project.tech) ? project.tech : String(project.tech || "Figma, React, CSS").split(",");
+
+  const customAccentHex = project.accentColorHex || (project.accent === "lime" ? "#ccff00" : project.accent === "blue" ? "#2563eb" : "#0f172a");
+  const customDevBgHex = project.devBgColorHex || (project.accent === "lime" ? "#ccff00" : project.accent === "blue" ? "#2563eb" : "#0f172a");
+
+  const discoveryCards = project.discoveryCards && project.discoveryCards.length > 0 ? project.discoveryCards : [
+    { n: "01", t: "USER FLOW", d: "Mapped the essential journeys, decision points and content priorities before committing to visual detail." },
+    { n: "02", t: "WIREFRAMES", d: "Built low-fidelity structures to test hierarchy, density and responsive behavior across key screens." },
+    { n: "03", t: "VISUAL DESIGN", d: "Developed an adaptable visual language with a clear type scale, purposeful color and consistent interaction patterns." },
+  ];
 
   return (
     <div className="inner-page work-detail-page">
+      {/* Hero Section */}
       <section className="case-hero editorial-grid">
         <Link to="/work" className="back-link">
           <ArrowLeft /> ALL WORK
@@ -56,6 +67,7 @@ export function CaseStudy({ project }: { project?: CaseStudyFull }) {
         </div>
       </section>
 
+      {/* Main Image Banner */}
       <div className="case-main-image" data-cursor="view">
         <img
           src={mainImage}
@@ -65,6 +77,7 @@ export function CaseStudy({ project }: { project?: CaseStudyFull }) {
         />
       </div>
 
+      {/* Overview Section */}
       <section className="case-overview editorial-grid">
         <SectionLabel>OVERVIEW</SectionLabel>
         <h2>{project.description || "A modern digital experience built for clarity and impact."}</h2>
@@ -78,39 +91,28 @@ export function CaseStudy({ project }: { project?: CaseStudyFull }) {
         </div>
       </section>
 
+      {/* Discovery & Research Process Section */}
       <section className="case-process dark-band">
         <div>
           <SectionLabel>RESEARCH / DISCOVERY</SectionLabel>
-          <h2>{project.overviewHeading || "FIND THE SIGNAL BEFORE THE STYLE."}</h2>
+          <h2>{project.discoveryHeading || project.overviewHeading || "FIND THE SIGNAL BEFORE THE STYLE."}</h2>
         </div>
         <div className="case-process-grid">
-          <article>
-            <span>01</span>
-            <h3>USER FLOW</h3>
-            <p>Mapped the essential journeys, decision points and content priorities before committing to visual detail.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>WIREFRAMES</h3>
-            <p>Built low-fidelity structures to test hierarchy, density and responsive behavior across key screens.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>VISUAL DESIGN</h3>
-            <p>Developed an adaptable visual language with a clear type scale, purposeful color and consistent interaction patterns.</p>
-          </article>
+          {discoveryCards.map((card, idx) => (
+            <article key={idx}>
+              <span>{card.n}</span>
+              <h3>{card.t}</h3>
+              <p>{card.d}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* Gallery Showcase */}
+      {/* Gallery Showcase & Design System Section */}
       <section className="case-gallery editorial-grid">
         <div>
-          <SectionLabel>PROJECT GALLERY</SectionLabel>
-          <h2>
-            CONSISTENCY
-            <br />
-            AT EVERY SCALE.
-          </h2>
+          <SectionLabel>DESIGN SYSTEM</SectionLabel>
+          <h2>{project.galleryHeading || "CONSISTENCY AT EVERY SCALE."}</h2>
         </div>
 
         {galleryImages.map((imgUrl, imgIdx) => (
@@ -126,40 +128,51 @@ export function CaseStudy({ project }: { project?: CaseStudyFull }) {
         ))}
 
         <div className="system-swatch">
-          <span>TYPE / 01</span>
-          <strong>Aa</strong>
-          <p>
-            Clear hierarchy
-            <br />
-            Flexible scale
+          <span>{project.typeLabel || "TYPE / 01"}</span>
+          <strong>{project.typeSample || "Aa"}</strong>
+          <p style={{ whiteSpace: "pre-line" }}>
+            {project.typeDescription || "Clear hierarchy\nFlexible scale"}
           </p>
         </div>
-        <div className="system-swatch accent">
-          <span>COLOR / 02</span>
-          <strong>●</strong>
-          <p>
-            Focused accents
-            <br />
-            Accessible contrast
+        <div className="system-swatch accent" style={{ backgroundColor: customAccentHex, color: (customAccentHex === "#ccff00" || customAccentHex === "#ffffff") ? "#0f172a" : "#ffffff" }}>
+          <span>{project.colorLabel || "COLOR / 02"}</span>
+          <strong style={{ color: "currentColor" }}>●</strong>
+          <p style={{ color: "currentColor", whiteSpace: "pre-line" }}>
+            {project.colorDescription || "Focused accents\nAccessible contrast"}
           </p>
         </div>
       </section>
 
-      <section className="case-development">
-        <SectionLabel>DEVELOPMENT</SectionLabel>
+      {/* Development Banner Section with Custom Background Color */}
+      <section
+        className="case-development"
+        style={{
+          backgroundColor: customDevBgHex,
+          color: customDevBgHex === "#ccff00" ? "#0f172a" : "#ffffff",
+          padding: "60px 40px",
+          margin: "40px 0",
+        }}
+      >
+        <SectionLabel>{project.devHeading ? "DEVELOPMENT" : "DEVELOPMENT"}</SectionLabel>
         <div>
-          <h2>
-            DESIGNED TO
-            <br />
-            WORK IN CODE.
+          <h2 style={{ color: "currentColor", fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 56px)", lineHeight: 0.95 }}>
+            {project.devHeading ? (
+              <span style={{ whiteSpace: "pre-line" }}>{project.devHeading}</span>
+            ) : (
+              <>
+                DESIGNED TO
+                <br />
+                WORK IN CODE.
+              </>
+            )}
           </h2>
-          <p>
-            The interface was considered as a responsive system rather than a fixed composition. Components, states and spacing adapt deliberately from desktop to mobile.
+          <p style={{ color: "currentColor", opacity: 0.9, marginTop: "16px" }}>
+            {project.devDescription || "The interface was considered as a responsive system rather than a fixed composition. Components, states and spacing adapt deliberately from desktop to mobile."}
           </p>
         </div>
-        <div className="device-crop">
+        <div className="device-crop" style={{ marginTop: "30px" }}>
           <img
-            src={mainImage}
+            src={devImage}
             alt={`${project.title || "Project"} responsive presentation`}
             loading="lazy"
             width={project.dimensions?.[0] || 1600}
@@ -168,6 +181,7 @@ export function CaseStudy({ project }: { project?: CaseStudyFull }) {
         </div>
       </section>
 
+      {/* Final Result Section */}
       <section className="case-result editorial-grid">
         <SectionLabel>FINAL RESULT</SectionLabel>
         <h2>{project.result || "A highly polished, responsive web experience."}</h2>
@@ -181,6 +195,7 @@ export function CaseStudy({ project }: { project?: CaseStudyFull }) {
         </div>
       </section>
 
+      {/* Next Project Nav Banner */}
       {nextProject && (
         <section className="next-project dark-band">
           <p>NEXT PROJECT</p>

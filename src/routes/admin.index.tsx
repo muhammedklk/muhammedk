@@ -1341,79 +1341,350 @@ function AdminCMSPage() {
                     EDITING CASE STUDY: <span style={{ color: "#2563eb" }}>{activeProject.title}</span>
                   </h3>
 
-                  {/* Thumbnail Image Upload */}
-                  <ImageUploader
-                    label="MAIN COVER / THUMBNAIL IMAGE (UPLOAD FROM DESKTOP)"
-                    value={activeProject.image}
-                    onChange={(url) => updateProjectField(activeProject.slug, "image", url)}
-                  />
+                  {/* 1. HERO & META SECTION */}
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "20px", marginBottom: "24px" }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#0f172a", marginBottom: "16px" }}>1. HERO & META DETAILS</h4>
+                    
+                    <ImageUploader
+                      label="MAIN COVER / HERO MOCKUP IMAGE (UPLOAD FROM DESKTOP)"
+                      value={activeProject.image}
+                      onChange={(url) => updateProjectField(activeProject.slug, "image", url)}
+                    />
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginTop: "20px" }}>
-                    <div>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>TITLE *</label>
-                      <input
-                        type="text"
-                        value={activeProject.title}
-                        onChange={(e) => updateProjectField(activeProject.slug, "title", e.target.value)}
-                        style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
-                      />
-                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginTop: "16px" }}>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>PROJECT TITLE *</label>
+                        <input
+                          type="text"
+                          value={activeProject.title}
+                          onChange={(e) => updateProjectField(activeProject.slug, "title", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
 
-                    <div>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>DISCIPLINE / CATEGORY *</label>
-                      <input
-                        type="text"
-                        value={activeProject.category}
-                        onChange={(e) => updateProjectField(activeProject.slug, "category", e.target.value)}
-                        style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
-                      />
-                    </div>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>DISCIPLINE / CATEGORY *</label>
+                        <input
+                          type="text"
+                          value={activeProject.category}
+                          onChange={(e) => updateProjectField(activeProject.slug, "category", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
 
-                    <div style={{ gridColumn: "1 / 3" }}>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>OVERVIEW DESCRIPTION</label>
-                      <textarea
-                        rows={3}
-                        value={activeProject.description}
-                        onChange={(e) => updateProjectField(activeProject.slug, "description", e.target.value)}
-                        style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
-                      />
-                    </div>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>CLIENT ROLE</label>
+                        <input
+                          type="text"
+                          value={activeProject.clientRole || "UI/UX Designer & Front-End Developer"}
+                          onChange={(e) => updateProjectField(activeProject.slug, "clientRole", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
 
-                    <div>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>CHALLENGE STATEMENT</label>
-                      <textarea
-                        rows={2}
-                        value={activeProject.challenge}
-                        onChange={(e) => updateProjectField(activeProject.slug, "challenge", e.target.value)}
-                        style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
-                      />
-                    </div>
-
-                    <div>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>OBJECTIVE STATEMENT</label>
-                      <textarea
-                        rows={2}
-                        value={activeProject.objective}
-                        onChange={(e) => updateProjectField(activeProject.slug, "objective", e.target.value)}
-                        style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
-                      />
-                    </div>
-
-                    <div style={{ gridColumn: "1 / 3" }}>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>FINAL RESULT</label>
-                      <textarea
-                        rows={2}
-                        value={activeProject.result}
-                        onChange={(e) => updateProjectField(activeProject.slug, "result", e.target.value)}
-                        style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
-                      />
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>TIMELINE / YEAR</label>
+                        <input
+                          type="text"
+                          value={activeProject.timeline || "2025 - 2026"}
+                          onChange={(e) => updateProjectField(activeProject.slug, "timeline", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  {/* Gallery Images Management */}
-                  <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid #e2e8f0" }}>
+                  {/* 2. OVERVIEW SECTION */}
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "20px", marginBottom: "24px" }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#0f172a", marginBottom: "16px" }}>2. OVERVIEW, CHALLENGE & OBJECTIVE</h4>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                      <div style={{ gridColumn: "1 / 3" }}>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>OVERVIEW SUMMARY DESCRIPTION</label>
+                        <textarea
+                          rows={3}
+                          value={activeProject.description}
+                          onChange={(e) => updateProjectField(activeProject.slug, "description", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>CHALLENGE STATEMENT</label>
+                        <textarea
+                          rows={2}
+                          value={activeProject.challenge}
+                          onChange={(e) => updateProjectField(activeProject.slug, "challenge", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>OBJECTIVE STATEMENT</label>
+                        <textarea
+                          rows={2}
+                          value={activeProject.objective}
+                          onChange={(e) => updateProjectField(activeProject.slug, "objective", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 3. RESEARCH & DISCOVERY PROCESS SECTION */}
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "20px", marginBottom: "24px" }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#0f172a", marginBottom: "16px" }}>3. RESEARCH & DISCOVERY PROCESS SECTION</h4>
+                    
+                    <div style={{ marginBottom: "16px" }}>
+                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>SECTION MAIN HEADING</label>
+                      <input
+                        type="text"
+                        value={activeProject.discoveryHeading || "FIND THE SIGNAL BEFORE THE STYLE."}
+                        onChange={(e) => updateProjectField(activeProject.slug, "discoveryHeading", e.target.value)}
+                        style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px", fontWeight: "700" }}
+                      />
+                    </div>
+
+                    <p style={{ fontSize: "12px", fontWeight: "700", color: "#475569", marginBottom: "12px" }}>PROCESS CARDS (3 COLUMNS):</p>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px" }}>
+                      {([
+                        { n: "01", t: "USER FLOW", d: "Mapped essential journeys..." },
+                        { n: "02", t: "WIREFRAMES", d: "Built low-fidelity structures..." },
+                        { n: "03", t: "VISUAL DESIGN", d: "Developed adaptable visual language..." },
+                      ]).map((defCard, cardIdx) => {
+                        const card = activeProject.discoveryCards?.[cardIdx] || defCard;
+                        return (
+                          <div key={cardIdx} style={{ background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "8px", padding: "14px" }}>
+                            <div style={{ display: "flex", gap: "8px", marginBottom: "8px" }}>
+                              <input
+                                type="text"
+                                value={card.n}
+                                onChange={(e) => {
+                                  const currentCards = [...(activeProject.discoveryCards || [
+                                    { n: "01", t: "USER FLOW", d: "" },
+                                    { n: "02", t: "WIREFRAMES", d: "" },
+                                    { n: "03", t: "VISUAL DESIGN", d: "" }
+                                  ])];
+                                  currentCards[cardIdx] = { ...currentCards[cardIdx], n: e.target.value };
+                                  updateProjectField(activeProject.slug, "discoveryCards", currentCards);
+                                }}
+                                style={{ width: "50px", padding: "6px", border: "1px solid #cbd5e1", borderRadius: "4px", fontSize: "12px", fontWeight: "700" }}
+                              />
+                              <input
+                                type="text"
+                                value={card.t}
+                                onChange={(e) => {
+                                  const currentCards = [...(activeProject.discoveryCards || [
+                                    { n: "01", t: "USER FLOW", d: "" },
+                                    { n: "02", t: "WIREFRAMES", d: "" },
+                                    { n: "03", t: "VISUAL DESIGN", d: "" }
+                                  ])];
+                                  currentCards[cardIdx] = { ...currentCards[cardIdx], t: e.target.value };
+                                  updateProjectField(activeProject.slug, "discoveryCards", currentCards);
+                                }}
+                                style={{ width: "100%", padding: "6px", border: "1px solid #cbd5e1", borderRadius: "4px", fontSize: "12px", fontWeight: "700" }}
+                              />
+                            </div>
+                            <textarea
+                              rows={3}
+                              value={card.d}
+                              onChange={(e) => {
+                                const currentCards = [...(activeProject.discoveryCards || [
+                                  { n: "01", t: "USER FLOW", d: "" },
+                                  { n: "02", t: "WIREFRAMES", d: "" },
+                                  { n: "03", t: "VISUAL DESIGN", d: "" }
+                                ])];
+                                currentCards[cardIdx] = { ...currentCards[cardIdx], d: e.target.value };
+                                updateProjectField(activeProject.slug, "discoveryCards", currentCards);
+                              }}
+                              style={{ width: "100%", padding: "6px", border: "1px solid #cbd5e1", borderRadius: "4px", fontSize: "12px" }}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* 4. DESIGN SYSTEM & COLOR PICKER SECTION */}
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "20px", marginBottom: "24px" }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#0f172a", marginBottom: "16px" }}>4. DESIGN SYSTEM & ACCENT COLOR PICKER</h4>
+
+                    <div style={{ marginBottom: "16px" }}>
+                      <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>GALLERY / SYSTEM HEADING</label>
+                      <input
+                        type="text"
+                        value={activeProject.galleryHeading || "CONSISTENCY AT EVERY SCALE."}
+                        onChange={(e) => updateProjectField(activeProject.slug, "galleryHeading", e.target.value)}
+                        style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                      />
+                    </div>
+
+                    {/* ACCENT SWATCH COLOR PICKER */}
+                    <div style={{ background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "8px", padding: "16px", marginBottom: "16px" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: "700", color: "#0f172a", marginBottom: "8px" }}>
+                        ACCENT SWATCH COLOR PICKER (COLOR / 02)
+                      </label>
+                      <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                        <input
+                          type="color"
+                          value={activeProject.accentColorHex || (activeProject.accent === "lime" ? "#ccff00" : activeProject.accent === "blue" ? "#2563eb" : "#0f172a")}
+                          onChange={(e) => updateProjectField(activeProject.slug, "accentColorHex", e.target.value)}
+                          style={{ width: 44, height: 44, padding: 2, border: "1px solid #cbd5e1", borderRadius: "8px", cursor: "pointer" }}
+                        />
+                        <input
+                          type="text"
+                          value={activeProject.accentColorHex || (activeProject.accent === "lime" ? "#ccff00" : activeProject.accent === "blue" ? "#2563eb" : "#0f172a")}
+                          onChange={(e) => updateProjectField(activeProject.slug, "accentColorHex", e.target.value)}
+                          style={{ width: "110px", padding: "8px", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px", fontWeight: "700" }}
+                        />
+                        
+                        <div style={{ display: "flex", gap: "6px" }}>
+                          {[
+                            { name: "Blue", hex: "#2563eb" },
+                            { name: "Lime", hex: "#ccff00" },
+                            { name: "Emerald", hex: "#10b981" },
+                            { name: "Amber", hex: "#f59e0b" },
+                            { name: "Pink", hex: "#ec4899" },
+                            { name: "Purple", hex: "#8b5cf6" },
+                            { name: "Dark", hex: "#0f172a" },
+                          ].map((c) => (
+                            <button
+                              key={c.hex}
+                              type="button"
+                              onClick={() => updateProjectField(activeProject.slug, "accentColorHex", c.hex)}
+                              title={c.name}
+                              style={{ width: 28, height: 28, borderRadius: "50%", background: c.hex, border: "2px solid #ffffff", boxShadow: "0 0 0 1px #cbd5e1", cursor: "pointer" }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>TYPOGRAPHY BOX SAMPLE</label>
+                        <input
+                          type="text"
+                          value={activeProject.typeSample || "Aa"}
+                          onChange={(e) => updateProjectField(activeProject.slug, "typeSample", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>TYPOGRAPHY BOX DESCRIPTION</label>
+                        <input
+                          type="text"
+                          value={activeProject.typeDescription || "Clear hierarchy\nFlexible scale"}
+                          onChange={(e) => updateProjectField(activeProject.slug, "typeDescription", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 5. CODE & DEVELOPMENT BANNER SECTION */}
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "20px", marginBottom: "24px" }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#0f172a", marginBottom: "16px" }}>5. DEVELOPMENT BANNER & COLOR PICKER</h4>
+
+                    {/* DEVELOPMENT BANNER BACKGROUND COLOR PICKER */}
+                    <div style={{ background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "8px", padding: "16px", marginBottom: "16px" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: "700", color: "#0f172a", marginBottom: "8px" }}>
+                        DEVELOPMENT BANNER BACKGROUND COLOR PICKER
+                      </label>
+                      <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                        <input
+                          type="color"
+                          value={activeProject.devBgColorHex || (activeProject.accent === "lime" ? "#ccff00" : activeProject.accent === "blue" ? "#2563eb" : "#0f172a")}
+                          onChange={(e) => updateProjectField(activeProject.slug, "devBgColorHex", e.target.value)}
+                          style={{ width: 44, height: 44, padding: 2, border: "1px solid #cbd5e1", borderRadius: "8px", cursor: "pointer" }}
+                        />
+                        <input
+                          type="text"
+                          value={activeProject.devBgColorHex || (activeProject.accent === "lime" ? "#ccff00" : activeProject.accent === "blue" ? "#2563eb" : "#0f172a")}
+                          onChange={(e) => updateProjectField(activeProject.slug, "devBgColorHex", e.target.value)}
+                          style={{ width: "110px", padding: "8px", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px", fontWeight: "700" }}
+                        />
+
+                        <div style={{ display: "flex", gap: "6px" }}>
+                          {[
+                            { name: "Lime", hex: "#ccff00" },
+                            { name: "Blue", hex: "#2563eb" },
+                            { name: "Emerald", hex: "#10b981" },
+                            { name: "Amber", hex: "#f59e0b" },
+                            { name: "Pink", hex: "#ec4899" },
+                            { name: "Indigo", hex: "#6366f1" },
+                            { name: "Dark", hex: "#0f172a" },
+                          ].map((c) => (
+                            <button
+                              key={c.hex}
+                              type="button"
+                              onClick={() => updateProjectField(activeProject.slug, "devBgColorHex", c.hex)}
+                              title={c.name}
+                              style={{ width: 28, height: 28, borderRadius: "50%", background: c.hex, border: "2px solid #ffffff", boxShadow: "0 0 0 1px #cbd5e1", cursor: "pointer" }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>BANNER MAIN HEADING</label>
+                        <input
+                          type="text"
+                          value={activeProject.devHeading || "DESIGNED TO WORK IN CODE."}
+                          onChange={(e) => updateProjectField(activeProject.slug, "devHeading", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>BANNER DESCRIPTION</label>
+                        <textarea
+                          rows={2}
+                          value={activeProject.devDescription || "The interface was considered as a responsive system..."}
+                          onChange={(e) => updateProjectField(activeProject.slug, "devDescription", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+                    </div>
+
+                    <ImageUploader
+                      label="DEVELOPMENT MOCKUP / LAPTOP IMAGE (UPLOAD FROM DESKTOP)"
+                      value={activeProject.devDeviceImage || activeProject.image}
+                      onChange={(url) => updateProjectField(activeProject.slug, "devDeviceImage", url)}
+                    />
+                  </div>
+
+                  {/* 6. FINAL RESULT & KEY LEARNINGS */}
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "20px", marginBottom: "24px" }}>
+                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#0f172a", marginBottom: "16px" }}>6. FINAL RESULT & KEY LEARNINGS</h4>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>FINAL RESULT HEADING</label>
+                        <textarea
+                          rows={2}
+                          value={activeProject.result}
+                          onChange={(e) => updateProjectField(activeProject.slug, "result", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>KEY LEARNINGS</label>
+                        <textarea
+                          rows={2}
+                          value={activeProject.keyLearnings || "Strong outcomes begin with clear hierarchy..."}
+                          onChange={(e) => updateProjectField(activeProject.slug, "keyLearnings", e.target.value)}
+                          style={{ width: "100%", padding: "10px", background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 7. GALLERY IMAGES MANAGER */}
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "20px" }}>
                     <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#0f172a", marginBottom: "12px" }}>
-                      CASE STUDY GALLERY IMAGES
+                      7. CASE STUDY GALLERY IMAGES
                     </h4>
                     <p style={{ fontSize: "12px", color: "#64748b", marginBottom: "16px" }}>
                       Add extra screenshot slides or mockups to display in the project case study gallery:

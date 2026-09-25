@@ -36,11 +36,30 @@ export type ExperienceItem = {
   description: string;
 };
 
+export type CaseStudyProcessCard = {
+  n: string;
+  t: string;
+  d: string;
+};
+
 export type CaseStudyFull = Project & {
   galleryImages?: string[];
   clientRole?: string;
   timeline?: string;
   overviewHeading?: string;
+  discoveryHeading?: string;
+  discoveryCards?: CaseStudyProcessCard[];
+  galleryHeading?: string;
+  accentColorHex?: string;
+  typeLabel?: string;
+  typeSample?: string;
+  typeDescription?: string;
+  colorLabel?: string;
+  colorDescription?: string;
+  devHeading?: string;
+  devDescription?: string;
+  devBgColorHex?: string;
+  devDeviceImage?: string;
   keyLearnings?: string;
 };
 
