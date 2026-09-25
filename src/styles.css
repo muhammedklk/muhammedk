@@ -1091,41 +1091,42 @@ main {
 }
 
 .page-title {
-    min-height: auto;
-    padding-top: calc(var(--header-h) + clamp(40px, 6vh, 80px));
-    padding-bottom: clamp(40px, 5vh, 70px);
+    min-height: 82svh;
     align-content: end;
-    border-bottom: 1px solid var(--border)
+    padding-top: calc(var(--header-h) + 30px);
+    padding-bottom: 50px;
+    position: relative
 }
 
 .page-title>p:first-child {
-    grid-column: 1/5;
+    grid-column: 1/4;
     align-self: start;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .08em;
-    color: var(--muted-foreground)
+    color: var(--foreground)
 }
 
 .page-title .work-page-count {
-    grid-column: 8/13;
+    grid-column: 11/13;
     text-align: right;
-    font-size: 10px;
+    align-self: start;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: .06em;
-    color: var(--muted-foreground);
-    line-height: 1.4
+    line-height: 1.35;
+    color: var(--foreground)
 }
 
 .page-title h1 {
-    grid-column: 1/13;
+    grid-column: 1/10;
     font-family: var(--font-display);
-    font-size: clamp(38px, 7vw, 110px);
-    line-height: .86;
-    letter-spacing: -0.02em;
-    white-space: normal;
-    word-break: break-word;
-    margin-block: 28px 24px
+    font-size: clamp(52px, 8.8vw, 140px);
+    line-height: .78;
+    letter-spacing: -0.03em;
+    margin-top: 10vh;
+    margin-bottom: 0;
+    white-space: normal
 }
 
 .page-title h1 span {
@@ -1134,11 +1135,12 @@ main {
 
 .page-title>p:last-child,
 .page-title>p:not(:first-child):not(.work-page-count) {
-    grid-column: 6/12;
-    font-size: clamp(16px, 1.4vw, 22px);
+    grid-column: 7/11;
+    align-self: end;
+    font-size: clamp(14px, 1.15vw, 18px);
     line-height: 1.45;
     color: var(--foreground);
-    margin-top: 10px
+    margin-bottom: 8px
 }
 
 .work-scroll-mark {
@@ -1148,7 +1150,7 @@ main {
     width: 28px;
     height: 28px;
     color: var(--primary);
-    margin-top: 10px
+    margin-bottom: 8px
 }
 
 .inner-page .selected-work {
@@ -1353,31 +1355,31 @@ main {
 }
 
 .contact-heading {
-    min-height: auto;
-    padding-top: calc(var(--header-h) + clamp(40px, 6vh, 80px));
-    padding-bottom: clamp(40px, 5vh, 70px);
+    min-height: 82svh;
     align-content: end;
-    border-bottom: 1px solid var(--border)
+    padding-top: calc(var(--header-h) + 30px);
+    padding-bottom: 50px;
+    position: relative
 }
 
 .contact-heading>p {
-    grid-column: 1/5;
+    grid-column: 1/4;
     align-self: start;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .08em;
-    color: var(--muted-foreground)
+    color: var(--foreground)
 }
 
 .contact-heading h1 {
-    grid-column: 1/13;
+    grid-column: 1/9;
     font-family: var(--font-display);
-    font-size: clamp(38px, 7vw, 110px);
-    line-height: .86;
-    letter-spacing: -0.02em;
-    white-space: normal;
-    word-break: break-word;
-    margin-block: 28px 24px
+    font-size: clamp(52px, 8.8vw, 140px);
+    line-height: .78;
+    letter-spacing: -0.03em;
+    margin-top: 10vh;
+    margin-bottom: 0;
+    white-space: normal
 }
 
 .contact-heading h1 span {
@@ -1385,12 +1387,18 @@ main {
 }
 
 .contact-heading>div {
-    grid-column: 7/13;
+    grid-column: 9/13;
     align-self: end;
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    margin-top: 10px
+    gap: 18px;
+    margin-bottom: 8px
+}
+
+.contact-heading>div>p {
+    font-size: clamp(16px, 1.3vw, 22px);
+    line-height: 1.4;
+    color: var(--foreground)
 }
 
 .contact-heading>div>p {
