@@ -16,7 +16,6 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as WorkRouteImport } from './routes/work'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
-import { Route as ApiCmsRouteImport } from './routes/api.cms'
 import { Route as WorkIndexRouteImport } from './routes/work.index'
 import { Route as WorkSlugRouteImport } from './routes/work.$slug'
 
@@ -55,11 +54,6 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
-const ApiCmsRoute = ApiCmsRouteImport.update({
-  id: '/api/cms',
-  path: '/api/cms',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WorkIndexRoute = WorkIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -78,7 +72,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/work': typeof WorkRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
-  '/api/cms': typeof ApiCmsRoute
   '/work/$slug': typeof WorkSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/work/': typeof WorkIndexRoute
@@ -88,7 +81,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/admin/login': typeof AdminLoginRoute
-  '/api/cms': typeof ApiCmsRoute
   '/work/$slug': typeof WorkSlugRoute
   '/admin': typeof AdminIndexRoute
   '/work': typeof WorkIndexRoute
@@ -101,7 +93,6 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/work': typeof WorkRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
-  '/api/cms': typeof ApiCmsRoute
   '/work/$slug': typeof WorkSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/work/': typeof WorkIndexRoute
@@ -115,7 +106,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/work'
     | '/admin/login'
-    | '/api/cms'
     | '/work/$slug'
     | '/admin/'
     | '/work/'
@@ -125,7 +115,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/admin/login'
-    | '/api/cms'
     | '/work/$slug'
     | '/admin'
     | '/work'
@@ -137,7 +126,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/work'
     | '/admin/login'
-    | '/api/cms'
     | '/work/$slug'
     | '/admin/'
     | '/work/'
@@ -149,7 +137,6 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
   WorkRoute: typeof WorkRouteWithChildren
-  ApiCmsRoute: typeof ApiCmsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -203,13 +190,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/api/cms': {
-      id: '/api/cms'
-      path: '/api/cms'
-      fullPath: '/api/cms'
-      preLoaderRoute: typeof ApiCmsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/work/': {
       id: '/work/'
       path: '/'
@@ -257,7 +237,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
   WorkRoute: WorkRouteWithChildren,
-  ApiCmsRoute: ApiCmsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

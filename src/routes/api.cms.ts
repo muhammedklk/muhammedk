@@ -1,40 +1,22 @@
-import { createAPIFileRoute } from "@tanstack/react-start/api";
+import { createServerFn } from "@tanstack/react-start";
 
 let globalCMSStore: { updatedAt: string; data: any } = {
   updatedAt: new Date().toISOString(),
   data: null,
 };
 
-export const Route = createAPIFileRoute("/api/cms")({
-  GET: async () => {
-    return new Response(JSON.stringify(globalCMSStore), {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-      },
-    });
-  },
-  POST: async ({ request }) => {
-    try {
-      const body = await request.json();
-      if (body?.data) {
-        globalCMSStore = {
-          updatedAt: body.updatedAt || new Date().toISOString(),
-          data: body.data,
-        };
-      }
-      return new Response(JSON.stringify({ success: true, updatedAt: globalCMSStore.updatedAt }), {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-    } catch (e: any) {
-      return new Response(JSON.stringify({ error: e.message }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-  },
+export const fetchRemoteCMS = createServerFn({ method: "GET" }).handler(async () => {
+  return globalCMSStore;
 });
+
+export const postRemoteCMS = createServerFn({ method: "POST" })
+  .validator((d: { data: any; updatedAt?: string }) => d)
+  .handler(async ({ data }: { data: { data: any; updatedAt?: string } }) => {
+    if (data?.data) {
+      globalCMSStore = {
+        updatedAt: data.updatedAt || new Date().toISOString(),
+        data: data.data,
+      };
+    }
+    return { success: true, updatedAt: globalCMSStore.updatedAt };
+  });

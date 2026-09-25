@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { projects as initialProjects, type Project } from "@/data/projects";
+import { fetchRemoteCMS, postRemoteCMS } from "@/routes/api.cms";
 
 export type MaintenanceConfig = {
   global: boolean;
@@ -382,12 +383,14 @@ export function saveStoredCMS(data: CMSData): void {
 
 async function syncToServerAndMongoDB(cmsData: CMSData, updatedAt: string) {
   try {
-    // 1. Post to Server API Endpoint
-    await fetch("/api/cms", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data: cmsData, updatedAt }),
-    }).catch(() => {});
+    // 1. Post to Server RPC Function
+    await postRemoteCMS({ data: { data: cmsData, updatedAt } }).catch(() => {
+      fetch("/api/cms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: cmsData, updatedAt }),
+      }).catch(() => {});
+    });
 
     // 2. MongoDB Atlas Payload
     const payload = {
@@ -416,16 +419,20 @@ export function useCMS() {
     // 2. Function to fetch latest state from Server API across systems/devices
     const checkServerSync = async () => {
       try {
-        const res = await fetch("/api/cms", { cache: "no-store" });
-        if (res.ok) {
-          const remote = await res.json();
-          if (remote?.data) {
-            const localTime = localStorage.getItem(CMS_UPDATED_AT_KEY) || "";
-            if (!localTime || (remote.updatedAt && remote.updatedAt > localTime)) {
-              localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(remote.data));
-              if (remote.updatedAt) localStorage.setItem(CMS_UPDATED_AT_KEY, remote.updatedAt);
-              setCms({ ...defaultCMSData, ...remote.data });
-            }
+        let remote: any = null;
+        try {
+          remote = await fetchRemoteCMS();
+        } catch {
+          const res = await fetch("/api/cms", { cache: "no-store" });
+          if (res.ok) remote = await res.json();
+        }
+
+        if (remote?.data) {
+          const localTime = localStorage.getItem(CMS_UPDATED_AT_KEY) || "";
+          if (!localTime || (remote.updatedAt && remote.updatedAt > localTime)) {
+            localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(remote.data));
+            if (remote.updatedAt) localStorage.setItem(CMS_UPDATED_AT_KEY, remote.updatedAt);
+            setCms({ ...defaultCMSData, ...remote.data });
           }
         }
       } catch (e) {
