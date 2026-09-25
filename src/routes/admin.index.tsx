@@ -3,8 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useAdminAuth } from "@/lib/authStore";
 import { useProjects, useMessages, saveStoredProjects, resetStoredProjects, type ContactMessage } from "@/lib/projectStore";
 import { type Project } from "@/data/projects";
-import { Plus, Edit2, Trash2, RefreshCw, Eye, ArrowUpRight, FolderKanban, MessageSquare, Check, X, Shield, Sparkles, Layers, LogOut } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Plus, Edit2, Trash2, RefreshCw, Eye, FolderKanban, MessageSquare, X, Shield, LogOut, ExternalLink, LayoutDashboard, Check } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -43,22 +42,29 @@ function AdminDashboardPage() {
 
   if (!mounted) {
     return (
-      <div className="inner-page dark-band" style={{ minHeight: "70vh", display: "grid", placeItems: "center" }}>
-        <p className="section-label" style={{ color: "var(--accent)" }}>[ INITIALIZING DASHBOARD ]</p>
+      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "grid", placeItems: "center" }}>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "12px", fontWeight: "700", color: "#64748b", letterSpacing: "0.1em" }}>
+          [ INITIALIZING CONTROL PANEL ]
+        </p>
       </div>
     );
   }
 
   if (!authenticated) {
     return (
-      <div className="editorial-grid" style={{ minHeight: "50vh", alignContent: "center", textAlign: "center" }}>
-        <div style={{ gridColumn: "4 / 10", background: "color-mix(in oklab, var(--dark) 90%, black)", border: "1px solid var(--accent)", padding: "40px" }}>
-          <Shield style={{ width: 40, height: 40, color: "var(--accent)", margin: "0 auto 16px" }} />
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "28px", marginBottom: "12px" }}>ACCESS RESTRICTED</h2>
-          <p style={{ fontSize: "14px", opacity: 0.8, marginBottom: "24px" }}>You must log in to view and manage portfolio projects.</p>
-          <Button variant="lime" size="editorial" onClick={() => navigate({ to: "/admin/login" })}>
+      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "var(--font-sans)" }}>
+        <div style={{ width: "100%", maxWidth: "420px", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "16px", padding: "40px", textAlign: "center", boxShadow: "0 20px 25px -5px rgba(0,0,0,0.05)" }}>
+          <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "#fee2e2", color: "#ef4444", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
+            <Shield style={{ width: 24, height: 24 }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "24px", fontWeight: "700", color: "#0f172a", marginBottom: "8px" }}>ACCESS RESTRICTED</h2>
+          <p style={{ fontSize: "13px", color: "#64748b", marginBottom: "24px" }}>You must log in to view and manage portfolio projects.</p>
+          <button
+            onClick={() => navigate({ to: "/admin/login" })}
+            style={{ width: "100%", padding: "12px", background: "#0f172a", color: "#ffffff", border: "none", borderRadius: "8px", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}
+          >
             GO TO LOGIN PAGE
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -138,287 +144,427 @@ function AdminDashboardPage() {
   };
 
   return (
-    <div className="inner-page dark-band" style={{ minHeight: "100vh", paddingTop: "calc(var(--header-h) + 20px)", paddingBottom: "60px" }}>
-      <header className="admin-header editorial-grid" style={{ paddingBottom: "24px", borderBottom: "1px solid color-mix(in oklab, var(--secondary-foreground) 20%, transparent)", marginBottom: "40px" }}>
-        <div style={{ gridColumn: "1 / 6", display: "flex", alignItems: "center", gap: "16px" }}>
-          <span className="section-label" style={{ color: "var(--accent)" }}>[ ADMIN DASHBOARD ]</span>
-          <span style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.08em", background: "color-mix(in oklab, var(--accent) 20%, transparent)", color: "var(--accent)", padding: "4px 8px", borderRadius: "2px" }}>
-            LIVE SYSTEM
-          </span>
+    <div style={{ minHeight: "100vh", background: "#f8fafc", color: "#0f172a", fontFamily: "var(--font-sans)" }}>
+      {/* Light Admin Top Bar */}
+      <header
+        style={{
+          background: "#ffffff",
+          borderBottom: "1px solid #e2e8f0",
+          padding: "16px 32px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+          boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#0f172a", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <LayoutDashboard style={{ width: 18, height: 18 }} />
+          </div>
+          <div>
+            <h1 style={{ fontFamily: "var(--font-display)", fontSize: "16px", fontWeight: "700", color: "#0f172a", margin: 0, lineHeight: 1.2 }}>
+              MUHAMMED K <span style={{ color: "#2563eb", fontWeight: "600", fontSize: "13px" }}>ADMIN</span>
+            </h1>
+            <span style={{ fontSize: "10px", fontWeight: "600", color: "#64748b" }}>PORTFOLIO CONTROL CENTER</span>
+          </div>
         </div>
-        <div style={{ gridColumn: "7 / 13", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "20px" }}>
-          <span style={{ fontSize: "11px", fontWeight: "600", color: "color-mix(in oklab, var(--secondary-foreground) 70%, transparent)" }}>
-            LOGGED IN AS <strong>MUHAMMED K</strong>
-          </span>
-          <Button
-            variant="editorialGhost"
-            size="sm"
+
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <Link
+            to="/"
+            target="_blank"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              fontSize: "12px",
+              fontWeight: "600",
+              color: "#475569",
+              textDecoration: "none",
+              padding: "8px 14px",
+              background: "#f1f5f9",
+              borderRadius: "6px",
+              transition: "background 0.2s",
+            }}
+          >
+            Live Site <ExternalLink style={{ width: 14, height: 14 }} />
+          </Link>
+          <button
             onClick={() => {
               logout();
               navigate({ to: "/admin/login" });
             }}
-            style={{ fontSize: "10px", padding: "6px 12px", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", gap: "6px" }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              fontSize: "12px",
+              fontWeight: "600",
+              color: "#dc2626",
+              background: "#fef2f2",
+              border: "1px solid #fecaca",
+              borderRadius: "6px",
+              padding: "8px 14px",
+              cursor: "pointer",
+            }}
           >
-            <LogOut style={{ width: 14, height: 14 }} /> LOGOUT
-          </Button>
+            <LogOut style={{ width: 14, height: 14 }} /> Logout
+          </button>
         </div>
       </header>
 
-      <div className="editorial-grid">
-      {/* Top Stats Banner */}
-      <div style={{ gridColumn: "1 / 13", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginBottom: "40px" }}>
-        <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 20%, transparent)", padding: "20px" }}>
-          <span style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.08em", opacity: 0.7 }}>PORTFOLIO WORKS</span>
-          <h3 style={{ fontFamily: "var(--font-display)", fontSize: "36px", marginTop: "8px", color: "var(--accent)" }}>{String(projects.length).padStart(2, "0")}</h3>
-        </div>
-        <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 20%, transparent)", padding: "20px" }}>
-          <span style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.08em", opacity: 0.7 }}>CONTACT MESSAGES</span>
-          <h3 style={{ fontFamily: "var(--font-display)", fontSize: "36px", marginTop: "8px", color: "var(--primary)" }}>{String(messages.length).padStart(2, "0")}</h3>
-        </div>
-        <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 20%, transparent)", padding: "20px" }}>
-          <span style={{ fontSize: "10px", fontWeight: "700", letterSpacing: "0.08em", opacity: 0.7 }}>SYSTEM STATUS</span>
-          <h3 style={{ fontFamily: "var(--font-sans)", fontSize: "16px", fontWeight: "700", marginTop: "16px", color: "#4ade80" }}>ONLINE & ACTIVE</h3>
-        </div>
-        <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 20%, transparent)", padding: "20px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "8px" }}>
-          <Button variant="lime" size="sm" onClick={handleOpenAdd} style={{ width: "100%", justifyContent: "center", gap: "6px", fontSize: "10px" }}>
-            <Plus style={{ width: 14, height: 14 }} /> ADD NEW PROJECT
-          </Button>
-          <Button variant="editorialGhost" size="sm" onClick={handleResetProjects} style={{ width: "100%", justifyContent: "center", gap: "6px", fontSize: "10px", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)" }}>
-            <RefreshCw style={{ width: 12, height: 12 }} /> RESET TO DEFAULTS
-          </Button>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div style={{ gridColumn: "1 / 13", display: "flex", borderBottom: "1px solid color-mix(in oklab, var(--secondary-foreground) 20%, transparent)", marginBottom: "30px" }}>
-        <button
-          onClick={() => setActiveTab("projects")}
-          style={{
-            padding: "14px 24px",
-            background: "none",
-            border: "none",
-            borderBottom: activeTab === "projects" ? "2px solid var(--accent)" : "none",
-            color: activeTab === "projects" ? "var(--accent)" : "color-mix(in oklab, var(--secondary-foreground) 60%, transparent)",
-            fontFamily: "var(--font-sans)",
-            fontSize: "12px",
-            fontWeight: "700",
-            letterSpacing: "0.08em",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <FolderKanban style={{ width: 16, height: 16 }} /> MANAGED WORKS ({projects.length})
-        </button>
-        <button
-          onClick={() => setActiveTab("messages")}
-          style={{
-            padding: "14px 24px",
-            background: "none",
-            border: "none",
-            borderBottom: activeTab === "messages" ? "2px solid var(--primary)" : "none",
-            color: activeTab === "messages" ? "var(--primary)" : "color-mix(in oklab, var(--secondary-foreground) 60%, transparent)",
-            fontFamily: "var(--font-sans)",
-            fontSize: "12px",
-            fontWeight: "700",
-            letterSpacing: "0.08em",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <MessageSquare style={{ width: 16, height: 16 }} /> SUBMITTED MESSAGES ({messages.length})
-        </button>
-      </div>
-
-      {/* Add / Edit Form Modal Drawer */}
-      {(isAddingNew || editingProject) && (
-        <div style={{ gridColumn: "1 / 13", background: "color-mix(in oklab, var(--dark) 95%, black)", border: "1px solid var(--accent)", padding: "30px", marginBottom: "40px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
-            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "24px", color: "var(--accent)" }}>
-              {isAddingNew ? "ADD NEW PORTFOLIO PROJECT" : `EDIT PROJECT: ${editingProject?.title}`}
+      {/* Main Admin Dashboard Body */}
+      <main style={{ maxWidth: "1280px", margin: "0 auto", padding: "32px 24px 60px" }}>
+        {/* Metric Cards Banner */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px", marginBottom: "32px" }}>
+          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "24px", boxShadow: "0 4px 6px -1px rgba(0,0,0,0.02)" }}>
+            <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b", letterSpacing: "0.05em", textTransform: "uppercase" }}>PORTFOLIO WORKS</span>
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "36px", fontWeight: "700", color: "#0f172a", marginTop: "8px", margin: "8px 0 0" }}>
+              {String(projects.length).padStart(2, "0")}
             </h3>
-            <button onClick={() => { setIsAddingNew(false); setEditingProject(null); }} style={{ background: "none", border: "none", color: "var(--secondary-foreground)", cursor: "pointer" }}>
-              <X style={{ width: 20, height: 20 }} />
-            </button>
           </div>
 
-          <form onSubmit={handleSaveForm} style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
-            <div>
-              <label style={{ display: "block", fontSize: "10px", fontWeight: "700", marginBottom: "6px" }}>PROJECT TITLE *</label>
-              <input
-                type="text"
-                required
-                value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="e.g. RONARAI KSA"
-                style={{ width: "100%", padding: "10px", background: "rgba(255,255,255,0.05)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", color: "inherit" }}
-              />
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "10px", fontWeight: "700", marginBottom: "6px" }}>CATEGORY / DISCIPLINE *</label>
-              <input
-                type="text"
-                required
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                placeholder="e.g. Restaurant Website / UI/UX Design & Development"
-                style={{ width: "100%", padding: "10px", background: "rgba(255,255,255,0.05)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", color: "inherit" }}
-              />
-            </div>
-            <div style={{ gridColumn: "1 / 3" }}>
-              <label style={{ display: "block", fontSize: "10px", fontWeight: "700", marginBottom: "6px" }}>PROJECT DESCRIPTION</label>
-              <textarea
-                rows={3}
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Brief summary of the project..."
-                style={{ width: "100%", padding: "10px", background: "rgba(255,255,255,0.05)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", color: "inherit" }}
-              />
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "10px", fontWeight: "700", marginBottom: "6px" }}>TECH STACK (COMMA SEPARATED)</label>
-              <input
-                type="text"
-                value={Array.isArray(formData.tech) ? formData.tech.join(", ") : formData.tech}
-                onChange={(e) => setFormData({ ...formData, tech: e.target.value.split(",").map((s) => s.trim()) })}
-                placeholder="Figma, HTML, CSS, JavaScript, React"
-                style={{ width: "100%", padding: "10px", background: "rgba(255,255,255,0.05)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", color: "inherit" }}
-              />
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "10px", fontWeight: "700", marginBottom: "6px" }}>IMAGE URL OR ASSET PATH</label>
-              <input
-                type="text"
-                value={formData.image}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                placeholder="/src/assets/mockup-ronaraiksa.jpg or HTTPS URL"
-                style={{ width: "100%", padding: "10px", background: "rgba(255,255,255,0.05)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", color: "inherit" }}
-              />
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "10px", fontWeight: "700", marginBottom: "6px" }}>ACCENT THEME</label>
-              <select
-                value={formData.accent}
-                onChange={(e) => setFormData({ ...formData, accent: e.target.value as "blue" | "lime" | "dark" })}
-                style={{ width: "100%", padding: "10px", background: "color-mix(in oklab, var(--dark) 90%, black)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", color: "inherit" }}
-              >
-                <option value="blue">Blue Accent</option>
-                <option value="lime">Lime Accent</option>
-                <option value="dark">Dark Accent</option>
-              </select>
-            </div>
-            <div>
-              <label style={{ display: "block", fontSize: "10px", fontWeight: "700", marginBottom: "6px" }}>CHALLENGE STATEMENT</label>
-              <input
-                type="text"
-                value={formData.challenge}
-                onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
-                placeholder="What was the main design challenge?"
-                style={{ width: "100%", padding: "10px", background: "rgba(255,255,255,0.05)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)", color: "inherit" }}
-              />
-            </div>
-            <div style={{ gridColumn: "1 / 3", display: "flex", gap: "12px", justifyContent: "flex-end", marginTop: "10px" }}>
-              <Button type="button" variant="editorialGhost" onClick={() => { setIsAddingNew(false); setEditingProject(null); }}>
-                CANCEL
-              </Button>
-              <Button type="submit" variant="lime">
-                {isAddingNew ? "SAVE NEW WORK" : "UPDATE WORK DETAILS"}
-              </Button>
-            </div>
-          </form>
-        </div>
-      )}
+          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "24px", boxShadow: "0 4px 6px -1px rgba(0,0,0,0.02)" }}>
+            <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b", letterSpacing: "0.05em", textTransform: "uppercase" }}>CONTACT MESSAGES</span>
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "36px", fontWeight: "700", color: "#2563eb", marginTop: "8px", margin: "8px 0 0" }}>
+              {String(messages.length).padStart(2, "0")}
+            </h3>
+          </div>
 
-      {/* Tab 1: Managed Projects List */}
-      {activeTab === "projects" && (
-        <div style={{ gridColumn: "1 / 13", display: "flex", flexDirection: "column", gap: "20px" }}>
-          {projects.map((p, idx) => (
-            <div
-              key={p.slug}
+          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "24px", boxShadow: "0 4px 6px -1px rgba(0,0,0,0.02)" }}>
+            <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b", letterSpacing: "0.05em", textTransform: "uppercase" }}>SYSTEM STATUS</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "16px" }}>
+              <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#22c55e" }} />
+              <span style={{ fontSize: "14px", fontWeight: "700", color: "#15803d" }}>ONLINE & READY</span>
+            </div>
+          </div>
+
+          <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "20px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "10px" }}>
+            <button
+              onClick={handleOpenAdd}
               style={{
-                display: "grid",
-                gridTemplateColumns: "80px 140px 1fr 200px 160px",
+                width: "100%",
+                padding: "10px 16px",
+                background: "#0f172a",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "8px",
+                fontSize: "12px",
+                fontWeight: "700",
+                cursor: "pointer",
+                display: "inline-flex",
                 alignItems: "center",
-                gap: "20px",
-                padding: "20px",
-                background: "rgba(255, 255, 255, 0.02)",
-                border: "1px solid color-mix(in oklab, var(--secondary-foreground) 15%, transparent)",
+                justifyContent: "center",
+                gap: "6px",
               }}
             >
-              <span style={{ fontFamily: "var(--font-display)", fontSize: "20px", color: "var(--accent)" }}>{p.number || String(idx + 1).padStart(2, "0")}</span>
-              <img
-                src={p.image}
-                alt={p.title}
-                style={{ width: "120px", height: "75px", objectFit: "cover", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 20%, transparent)" }}
-              />
-              <div>
-                <h4 style={{ fontFamily: "var(--font-display)", fontSize: "20px", marginBottom: "4px" }}>{p.title}</h4>
-                <p style={{ fontSize: "12px", opacity: 0.7, marginBottom: "8px" }}>{p.category}</p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                  {p.tech.map((t) => (
-                    <span key={t} style={{ fontSize: "9px", fontWeight: "700", background: "rgba(255, 255, 255, 0.08)", padding: "2px 6px" }}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <span style={{ fontSize: "10px", fontWeight: "700", opacity: 0.6, display: "block" }}>ACCENT THEME</span>
-                <span style={{ fontSize: "11px", fontWeight: "700", color: p.accent === "lime" ? "var(--accent)" : p.accent === "blue" ? "var(--primary)" : "#fff" }}>
-                  ● {p.accent.toUpperCase()}
-                </span>
-              </div>
-              <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
-                <Link to="/work/$slug" params={{ slug: p.slug }} target="_blank">
-                  <Button variant="editorialGhost" size="sm" style={{ padding: "8px", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)" }}>
-                    <Eye style={{ width: 14, height: 14 }} />
-                  </Button>
-                </Link>
-                <Button variant="editorialGhost" size="sm" onClick={() => handleOpenEdit(p)} style={{ padding: "8px", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 30%, transparent)" }}>
-                  <Edit2 style={{ width: 14, height: 14 }} />
-                </Button>
-                <Button variant="editorialGhost" size="sm" onClick={() => handleDeleteProject(p.slug)} style={{ padding: "8px", border: "1px solid rgba(239, 68, 68, 0.4)", color: "#f87171" }}>
-                  <Trash2 style={{ width: 14, height: 14 }} />
-                </Button>
-              </div>
-            </div>
-          ))}
+              <Plus style={{ width: 16, height: 16 }} /> ADD NEW PROJECT
+            </button>
+            <button
+              onClick={handleResetProjects}
+              style={{
+                width: "100%",
+                padding: "8px 16px",
+                background: "#f1f5f9",
+                color: "#475569",
+                border: "1px solid #cbd5e1",
+                borderRadius: "8px",
+                fontSize: "11px",
+                fontWeight: "600",
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+              }}
+            >
+              <RefreshCw style={{ width: 12, height: 12 }} /> Reset Defaults
+            </button>
+          </div>
         </div>
-      )}
 
-      {/* Tab 2: Contact Messages */}
-      {activeTab === "messages" && (
-        <div style={{ gridColumn: "1 / 13", display: "flex", flexDirection: "column", gap: "16px" }}>
-          {messages.length === 0 ? (
-            <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid color-mix(in oklab, var(--secondary-foreground) 15%, transparent)", padding: "40px", textAlign: "center" }}>
-              <MessageSquare style={{ width: 32, height: 32, opacity: 0.4, margin: "0 auto 12px" }} />
-              <p style={{ fontSize: "14px", opacity: 0.7 }}>No contact form messages logged yet.</p>
+        {/* Tab Selection */}
+        <div style={{ display: "flex", gap: "12px", borderBottom: "1px solid #e2e8f0", marginBottom: "28px", paddingBottom: "12px" }}>
+          <button
+            onClick={() => setActiveTab("projects")}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "8px",
+              border: "none",
+              background: activeTab === "projects" ? "#0f172a" : "#f1f5f9",
+              color: activeTab === "projects" ? "#ffffff" : "#475569",
+              fontSize: "13px",
+              fontWeight: "700",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              transition: "all 0.2s",
+            }}
+          >
+            <FolderKanban style={{ width: 16, height: 16 }} /> Managed Projects ({projects.length})
+          </button>
+
+          <button
+            onClick={() => setActiveTab("messages")}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "8px",
+              border: "none",
+              background: activeTab === "messages" ? "#0f172a" : "#f1f5f9",
+              color: activeTab === "messages" ? "#ffffff" : "#475569",
+              fontSize: "13px",
+              fontWeight: "700",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              transition: "all 0.2s",
+            }}
+          >
+            <MessageSquare style={{ width: 16, height: 16 }} /> Contact Messages ({messages.length})
+          </button>
+        </div>
+
+        {/* Add/Edit Project Form Modal Drawer */}
+        {(isAddingNew || editingProject) && (
+          <div
+            style={{
+              background: "#ffffff",
+              border: "1px solid #2563eb",
+              borderRadius: "16px",
+              padding: "32px",
+              marginBottom: "40px",
+              boxShadow: "0 10px 30px -5px rgba(37, 99, 235, 0.1)",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
+              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "20px", fontWeight: "700", color: "#0f172a", margin: 0 }}>
+                {isAddingNew ? "ADD NEW PORTFOLIO PROJECT" : `EDIT PROJECT: ${editingProject?.title}`}
+              </h3>
+              <button
+                onClick={() => {
+                  setIsAddingNew(false);
+                  setEditingProject(null);
+                }}
+                style={{ background: "#f1f5f9", border: "none", borderRadius: "50%", width: "32px", height: "32px", display: "grid", placeItems: "center", color: "#475569", cursor: "pointer" }}
+              >
+                <X style={{ width: 18, height: 18 }} />
+              </button>
             </div>
-          ) : (
-            messages.map((m) => (
+
+            <form onSubmit={handleSaveForm} style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
+              <div>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>PROJECT TITLE *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  placeholder="e.g. RONARAI KSA"
+                  style={{ width: "100%", padding: "10px 14px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", color: "#0f172a", fontSize: "13px" }}
+                />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>CATEGORY / DISCIPLINE *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  placeholder="e.g. Restaurant Website / UI/UX Design"
+                  style={{ width: "100%", padding: "10px 14px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", color: "#0f172a", fontSize: "13px" }}
+                />
+              </div>
+              <div style={{ gridColumn: "1 / 3" }}>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>PROJECT DESCRIPTION</label>
+                <textarea
+                  rows={3}
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="Brief summary of the project..."
+                  style={{ width: "100%", padding: "10px 14px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", color: "#0f172a", fontSize: "13px", resize: "vertical" }}
+                />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>TECH STACK (COMMA SEPARATED)</label>
+                <input
+                  type="text"
+                  value={Array.isArray(formData.tech) ? formData.tech.join(", ") : formData.tech}
+                  onChange={(e) => setFormData({ ...formData, tech: e.target.value.split(",").map((s) => s.trim()) })}
+                  placeholder="Figma, HTML, CSS, JavaScript, React"
+                  style={{ width: "100%", padding: "10px 14px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", color: "#0f172a", fontSize: "13px" }}
+                />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>IMAGE URL OR ASSET PATH</label>
+                <input
+                  type="text"
+                  value={formData.image}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  placeholder="Asset URL or /src/assets/..."
+                  style={{ width: "100%", padding: "10px 14px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", color: "#0f172a", fontSize: "13px" }}
+                />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>ACCENT THEME</label>
+                <select
+                  value={formData.accent}
+                  onChange={(e) => setFormData({ ...formData, accent: e.target.value as "blue" | "lime" | "dark" })}
+                  style={{ width: "100%", padding: "10px 14px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", color: "#0f172a", fontSize: "13px" }}
+                >
+                  <option value="blue">Blue Accent</option>
+                  <option value="lime">Lime Accent</option>
+                  <option value="dark">Dark Accent</option>
+                </select>
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>CHALLENGE STATEMENT</label>
+                <input
+                  type="text"
+                  value={formData.challenge}
+                  onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
+                  placeholder="What was the main design challenge?"
+                  style={{ width: "100%", padding: "10px 14px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", color: "#0f172a", fontSize: "13px" }}
+                />
+              </div>
+              <div style={{ gridColumn: "1 / 3", display: "flex", gap: "12px", justifyContent: "flex-end", marginTop: "10px" }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsAddingNew(false);
+                    setEditingProject(null);
+                  }}
+                  style={{ padding: "10px 20px", background: "#f1f5f9", color: "#475569", border: "none", borderRadius: "6px", fontSize: "12px", fontWeight: "700", cursor: "pointer" }}
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  style={{ padding: "10px 24px", background: "#2563eb", color: "#ffffff", border: "none", borderRadius: "6px", fontSize: "12px", fontWeight: "700", cursor: "pointer" }}
+                >
+                  {isAddingNew ? "SAVE NEW WORK" : "UPDATE WORK DETAILS"}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* Tab 1: Managed Projects List */}
+        {activeTab === "projects" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {projects.map((p, idx) => (
               <div
-                key={m.id}
+                key={p.slug}
                 style={{
+                  display: "grid",
+                  gridTemplateColumns: "60px 120px 1fr 160px 140px",
+                  alignItems: "center",
+                  gap: "20px",
                   padding: "20px",
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid color-mix(in oklab, var(--secondary-foreground) 15%, transparent)",
+                  background: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "12px",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.01)",
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-                  <strong style={{ fontSize: "14px", color: "var(--accent)" }}>{m.name} ({m.email})</strong>
-                  <span style={{ fontSize: "10px", opacity: 0.6 }}>{new Date(m.createdAt).toLocaleString()}</span>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: "18px", fontWeight: "700", color: "#64748b" }}>
+                  {p.number || String(idx + 1).padStart(2, "0")}
+                </span>
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  style={{ width: "100px", height: "65px", objectFit: "cover", borderRadius: "6px", border: "1px solid #e2e8f0" }}
+                />
+                <div>
+                  <h4 style={{ fontFamily: "var(--font-display)", fontSize: "18px", fontWeight: "700", color: "#0f172a", margin: "0 0 4px" }}>{p.title}</h4>
+                  <p style={{ fontSize: "12px", color: "#64748b", margin: "0 0 8px" }}>{p.category}</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                    {p.tech.map((t) => (
+                      <span key={t} style={{ fontSize: "10px", fontWeight: "600", background: "#f1f5f9", color: "#334155", padding: "2px 8px", borderRadius: "4px" }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                {m.service && <span style={{ fontSize: "10px", fontWeight: "700", background: "var(--primary)", color: "#fff", padding: "2px 6px", display: "inline-block", marginBottom: "10px" }}>{m.service}</span>}
-                <p style={{ fontSize: "13px", lineHeight: 1.5, opacity: 0.9 }}>{m.message}</p>
+                <div>
+                  <span style={{ fontSize: "10px", fontWeight: "700", color: "#94a3b8", display: "block", textTransform: "uppercase" }}>THEME</span>
+                  <span style={{ fontSize: "12px", fontWeight: "700", color: p.accent === "lime" ? "#65a30d" : p.accent === "blue" ? "#2563eb" : "#0f172a" }}>
+                    ● {p.accent.toUpperCase()}
+                  </span>
+                </div>
+                <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
+                  <Link to="/work/$slug" params={{ slug: p.slug }} target="_blank">
+                    <button
+                      title="View Live Work"
+                      style={{ padding: "8px 12px", background: "#f1f5f9", color: "#475569", border: "1px solid #cbd5e1", borderRadius: "6px", cursor: "pointer", display: "inline-flex", alignItems: "center" }}
+                    >
+                      <Eye style={{ width: 14, height: 14 }} />
+                    </button>
+                  </Link>
+                  <button
+                    title="Edit Project"
+                    onClick={() => handleOpenEdit(p)}
+                    style={{ padding: "8px 12px", background: "#eff6ff", color: "#2563eb", border: "1px solid #bfdbfe", borderRadius: "6px", cursor: "pointer", display: "inline-flex", alignItems: "center" }}
+                  >
+                    <Edit2 style={{ width: 14, height: 14 }} />
+                  </button>
+                  <button
+                    title="Delete Project"
+                    onClick={() => handleDeleteProject(p.slug)}
+                    style={{ padding: "8px 12px", background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca", borderRadius: "6px", cursor: "pointer", display: "inline-flex", alignItems: "center" }}
+                  >
+                    <Trash2 style={{ width: 14, height: 14 }} />
+                  </button>
+                </div>
               </div>
-            ))
-          )}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+
+        {/* Tab 2: Contact Messages */}
+        {activeTab === "messages" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {messages.length === 0 ? (
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "48px", textAlign: "center" }}>
+                <MessageSquare style={{ width: 36, height: 36, color: "#cbd5e1", margin: "0 auto 12px" }} />
+                <p style={{ fontSize: "14px", color: "#64748b", margin: 0 }}>No contact form messages logged yet.</p>
+              </div>
+            ) : (
+              messages.map((m) => (
+                <div
+                  key={m.id}
+                  style={{
+                    padding: "24px",
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "12px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.01)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+                    <strong style={{ fontSize: "14px", color: "#0f172a" }}>
+                      {m.name} <span style={{ fontWeight: "400", color: "#2563eb" }}>({m.email})</span>
+                    </strong>
+                    <span style={{ fontSize: "11px", color: "#94a3b8" }}>{new Date(m.createdAt).toLocaleString()}</span>
+                  </div>
+                  {m.service && (
+                    <span style={{ fontSize: "11px", fontWeight: "700", background: "#e0f2fe", color: "#0369a1", padding: "3px 8px", borderRadius: "4px", display: "inline-block", marginBottom: "12px" }}>
+                      SERVICE: {m.service}
+                    </span>
+                  )}
+                  <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#334155", margin: 0, background: "#f8fafc", padding: "12px 16px", borderRadius: "8px", border: "1px solid #f1f5f9" }}>
+                    {m.message}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </main>
     </div>
-  </div>
-);
+  );
 }
