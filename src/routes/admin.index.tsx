@@ -520,7 +520,7 @@ function AdminCMSPage() {
                   Active MongoDB Atlas cluster URI configured for live portfolio CMS persistence:
                 </p>
                 <div style={{ background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "8px", padding: "12px", fontFamily: "monospace", fontSize: "12px", color: "#334155" }}>
-                  mongodb+srv://kmuhammed:&lt;Muhammed9656&gt;@cluster0.pc5tkcr.mongodb.net/portfolio_cms
+                  mongodb+srv://kmuhammed:Muhammed9656@cluster0.pc5tkcr.mongodb.net/portfolio_cms
                 </div>
               </div>
             </div>
