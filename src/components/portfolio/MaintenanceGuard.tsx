@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Wrench, Home, Briefcase, Mail, User, Sparkles, RefreshCw, ArrowRight } from "lucide-react";
+import { Home, Briefcase, Mail, User, Sparkles, Code2, Hammer, PencilRuler, Wrench, Layers, Cpu } from "lucide-react";
 import { useCMS } from "@/lib/cmsStore";
 
 interface MaintenanceGuardProps {
@@ -63,15 +63,27 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
           backgroundSize: "40px 40px",
         }}
       >
-        {/* Keyframe animations for animated icon & pinging badge */}
+        {/* Keyframe animations for editing & building icon */}
         <style>{`
           @keyframes spinSlow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
           }
-          @keyframes pulseScale {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+          @keyframes spinReverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+          }
+          @keyframes floatUp {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-6px) scale(1.08); }
+          }
+          @keyframes floatDown {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(6px) scale(1.08); }
+          }
+          @keyframes pulseBuild {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.25); }
+            50% { transform: scale(1.06); box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.4); }
           }
           @keyframes pingPulse {
             0% { transform: scale(1); opacity: 0.8; }
@@ -86,35 +98,102 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
         `}</style>
 
         <div style={{ maxWidth: "620px", width: "100%", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "24px", padding: "48px 36px", boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)" }}>
-          {/* Animated Icon Container */}
-          <div style={{ position: "relative", width: "88px", height: "88px", margin: "0 auto 28px" }}>
-            {/* Spinning Outer Dashed Ring */}
+          {/* Animated Edit & Build Icon Showcase */}
+          <div style={{ position: "relative", width: "104px", height: "104px", margin: "0 auto 28px" }}>
+            {/* Outer Orbiting Dashed Building Ring */}
             <div
               style={{
                 position: "absolute",
                 inset: 0,
                 borderRadius: "50%",
                 border: "2px dashed #2563eb",
-                animation: "spinSlow 12s linear infinite",
+                animation: "spinSlow 10s linear infinite",
               }}
             />
-            {/* Inner Pulsing Glowing Circle */}
+
+            {/* Outer Orbiting Reverse Dotted Ring */}
             <div
               style={{
                 position: "absolute",
-                inset: "8px",
+                inset: "-6px",
                 borderRadius: "50%",
-                background: "#eff6ff",
-                border: "1px solid #bfdbfe",
+                border: "2px dotted #93c5fd",
+                animation: "spinReverse 14s linear infinite",
+              }}
+            />
+
+            {/* Central Edit & Build Badge */}
+            <div
+              style={{
+                position: "absolute",
+                inset: "10px",
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)",
+                border: "2px solid #bfdbfe",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 color: "#2563eb",
-                animation: "pulseScale 2.5s ease-in-out infinite",
-                boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.2)",
+                animation: "pulseBuild 3s ease-in-out infinite",
               }}
             >
-              <Wrench style={{ width: 34, height: 34 }} />
+              <Code2 style={{ width: 40, height: 40, color: "#2563eb" }} />
+            </div>
+
+            {/* Floating Edit Pencil Icon (Top Right Orbit) */}
+            <div
+              style={{
+                position: "absolute",
+                top: "-4px",
+                right: "-4px",
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                background: "#0f172a",
+                color: "#ffffff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 4px 10px rgba(15,23,42,0.25)",
+                animation: "floatUp 2.5s ease-in-out infinite",
+              }}
+              title="Editing Content"
+            >
+              <PencilRuler style={{ width: 16, height: 16, color: "#ccff00" }} />
+            </div>
+
+            {/* Floating Hammer / Build Tool Icon (Bottom Left Orbit) */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-4px",
+                left: "-4px",
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                background: "#2563eb",
+                color: "#ffffff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 4px 10px rgba(37,99,235,0.3)",
+                animation: "floatDown 2.5s ease-in-out infinite",
+              }}
+              title="Building Code & Design"
+            >
+              <Hammer style={{ width: 16, height: 16 }} />
+            </div>
+
+            {/* Sparkle Badge (Top Left) */}
+            <div
+              style={{
+                position: "absolute",
+                top: "10px",
+                left: "-10px",
+                animation: "floatUp 3s ease-in-out infinite 0.5s",
+              }}
+            >
+              <Sparkles style={{ width: 18, height: 18, color: "#f59e0b" }} />
             </div>
           </div>
 
@@ -147,7 +226,7 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
                   animation: "pingPulse 1.8s cubic-bezier(0, 0, 0.2, 1) infinite",
                 }}
               />
-              <span style={{ relative: "relative", display: "inline-flex", width: "10px", height: "10px", borderRadius: "50%", background: "#dc2626" }} />
+              <span style={{ position: "relative", display: "inline-flex", width: "10px", height: "10px", borderRadius: "50%", background: "#dc2626" }} />
             </span>
             {globalMaintenance ? "WEBSITE UNDER SCHEDULED MAINTENANCE" : `${pageName} UNDER MAINTENANCE`}
           </div>
@@ -180,7 +259,6 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
                 border: "1px solid #cbd5e1",
                 borderRadius: "16px",
                 padding: "24px 20px",
-                marginBottom: "28px",
               }}
             >
               <p style={{ fontSize: "11px", fontWeight: "700", color: "#2563eb", marginBottom: "16px", letterSpacing: "0.1em", textTransform: "uppercase" }}>
@@ -278,7 +356,6 @@ export function MaintenanceGuard({ children }: MaintenanceGuardProps) {
               </div>
             </div>
           )}
-
         </div>
       </div>
     );
