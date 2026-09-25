@@ -1388,7 +1388,7 @@ main {
 }
 
 .contact-heading>div {
-    grid-column: 8/12;
+    grid-column: 10/13;
     align-self: end;
     display: flex;
     flex-direction: column;
@@ -1400,10 +1400,6 @@ main {
     font-size: clamp(16px, 1.3vw, 22px);
     line-height: 1.4;
     color: var(--foreground)
-}
-
-.contact-heading>div>p {
-    font-size: 20px
 }
 
 .contact-body {
