@@ -346,9 +346,10 @@ export const defaultCMSData: CMSData = {
 };
 
 const CMS_STORAGE_KEY = "muhammed_portfolio_cms_v2";
+const CMS_VERSION_KEY = "portfolio_cms_version";
+const CMS_UPDATED_AT_KEY = "portfolio_cms_updated_at";
 
 // BroadcastChannel for instant real-time sync across multiple tabs/windows/systems
-const CMS_UPDATED_AT_KEY = "portfolio_cms_updated_at";
 const bc = typeof window !== "undefined" && typeof BroadcastChannel !== "undefined" ? new BroadcastChannel("portfolio_cms_channel") : null;
 
 export function getStoredCMS(): CMSData {
@@ -384,13 +385,17 @@ export function saveStoredCMS(data: CMSData): void {
 async function syncToServerAndMongoDB(cmsData: CMSData, updatedAt: string) {
   try {
     // 1. Post to Server RPC Function
-    await postRemoteCMS({ data: { data: cmsData, updatedAt } }).catch(() => {
+    const res = await postRemoteCMS({ data: { data: cmsData, updatedAt } }).catch(() => null);
+    if (res?.version) {
+      localStorage.setItem(CMS_VERSION_KEY, String(res.version));
+      if (res.updatedAt) localStorage.setItem(CMS_UPDATED_AT_KEY, res.updatedAt);
+    } else {
       fetch("/api/cms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ data: cmsData, updatedAt }),
       }).catch(() => {});
-    });
+    }
 
     // 2. MongoDB Atlas Payload
     const payload = {
@@ -410,13 +415,10 @@ export function resetStoredCMS(): void {
 }
 
 export function useCMS() {
-  const [cms, setCms] = useState<CMSData>(defaultCMSData);
+  const [cms, setCms] = useState<CMSData>(getStoredCMS);
 
   useEffect(() => {
-    // 1. Load initial local state
-    setCms(getStoredCMS());
-
-    // 2. Function to fetch latest state from Server API across systems/devices
+    // 1. Function to fetch latest state from Server API across systems/devices
     const checkServerSync = async () => {
       try {
         let remote: any = null;
@@ -428,9 +430,17 @@ export function useCMS() {
         }
 
         if (remote?.data) {
-          const localTime = localStorage.getItem(CMS_UPDATED_AT_KEY) || "";
-          if (!localTime || (remote.updatedAt && remote.updatedAt > localTime)) {
+          const currentLocalVersionStr = localStorage.getItem(CMS_VERSION_KEY) || "0";
+          const currentLocalVersion = parseInt(currentLocalVersionStr, 10) || 0;
+          const currentLocalTime = localStorage.getItem(CMS_UPDATED_AT_KEY) || "";
+
+          const hasVersionUpdate = typeof remote.version === "number" && remote.version > currentLocalVersion;
+          const hasTimeUpdate = Boolean(remote.updatedAt && remote.updatedAt !== currentLocalTime);
+          const isMissingLocal = !localStorage.getItem(CMS_STORAGE_KEY);
+
+          if (hasVersionUpdate || hasTimeUpdate || isMissingLocal) {
             localStorage.setItem(CMS_STORAGE_KEY, JSON.stringify(remote.data));
+            if (remote.version) localStorage.setItem(CMS_VERSION_KEY, String(remote.version));
             if (remote.updatedAt) localStorage.setItem(CMS_UPDATED_AT_KEY, remote.updatedAt);
             setCms({ ...defaultCMSData, ...remote.data });
           }
@@ -456,15 +466,17 @@ export function useCMS() {
     window.addEventListener("cms-updated", handleUpdate);
     window.addEventListener("storage", handleUpdate);
     window.addEventListener("focus", checkServerSync);
+    document.addEventListener("visibilitychange", checkServerSync);
     bc?.addEventListener("message", handleBcMessage);
 
-    // 3. Real-time polling every 3 seconds for instant updates across different systems/devices
-    const interval = setInterval(checkServerSync, 3000);
+    // 3. Ultra-fast sub-second real-time sync (800ms) across different devices/browsers
+    const interval = setInterval(checkServerSync, 800);
 
     return () => {
       window.removeEventListener("cms-updated", handleUpdate);
       window.removeEventListener("storage", handleUpdate);
       window.removeEventListener("focus", checkServerSync);
+      document.removeEventListener("visibilitychange", checkServerSync);
       bc?.removeEventListener("message", handleBcMessage);
       clearInterval(interval);
     };

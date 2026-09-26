@@ -498,10 +498,36 @@ function AdminCMSPage() {
                 </div>
 
                 <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "20px", boxShadow: "0 2px 4px rgba(0,0,0,0.01)" }}>
-                  <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b" }}>GLOBAL MAINTENANCE</span>
-                  <h3 style={{ fontSize: "16px", fontWeight: "700", color: draft.maintenance.global ? "#dc2626" : "#16a34a", margin: "16px 0 0" }}>
-                    {draft.maintenance.global ? "● ACTIVE (SITE OFFLINE)" : "● DISABLED (SITE LIVE)"}
-                  </h3>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b" }}>GLOBAL MAINTENANCE</span>
+                      <h3 style={{ fontSize: "15px", fontWeight: "700", color: draft.maintenance.global ? "#dc2626" : "#16a34a", margin: "8px 0 0" }}>
+                        {draft.maintenance.global ? "● ACTIVE (SITE OFFLINE)" : "● DISABLED (SITE LIVE)"}
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => {
+                        const newMaintenance = { ...draft.maintenance, global: !draft.maintenance.global };
+                        const newDraft = { ...draft, maintenance: newMaintenance };
+                        setDraft(newDraft);
+                        updateCMS(newDraft);
+                        setSaveStatus(`Global Maintenance ${newMaintenance.global ? "ENABLED" : "DISABLED"} — Live on all devices instantly!`);
+                        setTimeout(() => setSaveStatus(null), 4000);
+                      }}
+                      style={{
+                        padding: "8px 14px",
+                        background: draft.maintenance.global ? "#dc2626" : "#16a34a",
+                        color: "#ffffff",
+                        border: "none",
+                        borderRadius: "6px",
+                        fontSize: "11px",
+                        fontWeight: "700",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {draft.maintenance.global ? "TURN OFF" : "TURN ON"}
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -1375,7 +1401,7 @@ function AdminCMSPage() {
               {/* 4. SERVICES SHOWCASE CARD */}
               <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "28px", marginBottom: "24px" }}>
                 <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#2563eb", marginBottom: "20px" }}>4. Services Showcase ("WHAT I CAN HELP WITH")</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px", marginBottom: "16px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>SERVICES SECTION LABEL</label>
                     <input
@@ -1386,11 +1412,20 @@ function AdminCMSPage() {
                     />
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>SERVICES TITLE</label>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>TITLE LINE 1</label>
                     <input
                       type="text"
-                      value={draft.home.services.title}
-                      onChange={(e) => setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, title: e.target.value } } })}
+                      value={draft.home.services.titleLine1}
+                      onChange={(e) => setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, titleLine1: e.target.value } } })}
+                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11px", fontWeight: "700", color: "#475569", marginBottom: "6px" }}>TITLE LINE 2</label>
+                    <input
+                      type="text"
+                      value={draft.home.services.titleLine2}
+                      onChange={(e) => setDraft({ ...draft, home: { ...draft.home, services: { ...draft.home.services, titleLine2: e.target.value } } })}
                       style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "6px", fontSize: "13px" }}
                     />
                   </div>
@@ -2000,7 +2035,14 @@ function AdminCMSPage() {
                   </div>
 
                   <button
-                    onClick={() => setDraft({ ...draft, maintenance: { ...draft.maintenance, global: !draft.maintenance.global } })}
+                    onClick={() => {
+                      const newMaintenance = { ...draft.maintenance, global: !draft.maintenance.global };
+                      const newDraft = { ...draft, maintenance: newMaintenance };
+                      setDraft(newDraft);
+                      updateCMS(newDraft);
+                      setSaveStatus(`Global Maintenance ${newMaintenance.global ? "ENABLED" : "DISABLED"} — Live on all devices instantly!`);
+                      setTimeout(() => setSaveStatus(null), 4000);
+                    }}
                     style={{
                       padding: "12px 24px",
                       background: draft.maintenance.global ? "#dc2626" : "#16a34a",
@@ -2050,15 +2092,14 @@ function AdminCMSPage() {
                       >
                         <strong style={{ fontSize: "14px", color: "#0f172a" }}>{p.title}</strong>
                         <button
-                          onClick={() =>
-                            setDraft({
-                              ...draft,
-                              maintenance: {
-                                ...draft.maintenance,
-                                pages: { ...draft.maintenance.pages, [p.key]: !isPageOn },
-                              },
-                            })
-                          }
+                          onClick={() => {
+                            const newPages = { ...draft.maintenance.pages, [p.key]: !isPageOn };
+                            const newDraft = { ...draft, maintenance: { ...draft.maintenance, pages: newPages } };
+                            setDraft(newDraft);
+                            updateCMS(newDraft);
+                            setSaveStatus(`${p.title} ${!isPageOn ? "ENABLED" : "DISABLED"} — Live on all devices instantly!`);
+                            setTimeout(() => setSaveStatus(null), 4000);
+                          }}
                           style={{
                             padding: "8px 16px",
                             background: isPageOn ? "#dc2626" : "#0f172a",
